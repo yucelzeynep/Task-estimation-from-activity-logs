@@ -1,11 +1,20 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# !/usr/bin/env python3
+#  -*- coding: utf-8 -*-
 """
 Created on Wed May 22 13:19:42 2019
 
 @author: florianpgn
+
+This file is called post-processing but it may a little confusing. 
+
+Here, the post-processing refers to putting the data, which is loaded from the 
+raw file, into some shape that we like, e.g. setting 'duration' to the time 
+difference between t_start and t_stop.
+
+Actually, the pre-processing explained in the article comes after this so-called
+post-processing.
 """
-from datetime import datetime #There is a datetime module in datetime...
+from datetime import datetime # There is a datetime module in datetime...
 
 import params
 from importlib import reload
@@ -45,20 +54,20 @@ def addDurationFeature(datalog):
     """
     Duration feature section
     """
-    #Add the new feature
+    # Add the new feature
     datalog[ params.DURATION_STR ] = []
     
-    #Format the date
+    # Format the date
     datalog = clearDates(datalog)
     
-    #Iterate through both the starting time and ending time
+    # Iterate through both the starting time and ending time
     for date_start, date_stop in zip(datalog[ params.TIME_START_STR ] ,\
                                      datalog[ params.TIME_STOP_STR ] ):
         
         start_time = datetime.strptime(date_start, DATE_FORMAT)
         stop_time = datetime.strptime(date_stop, DATE_FORMAT)
         
-        #Calculate the difference bewteen the stoping and starting time
+        # Calculate the difference bewteen the stoping and starting time
         duration = (stop_time - start_time).total_seconds();
         datalog[ params.DURATION_STR ].append(duration)
         
@@ -70,7 +79,7 @@ def addIdleFeature(datalog):
     Idle  feature section
 
     """
-    #Add the new feature
+    # Add the new feature
     datalog['idle_after_task'] = []
     
     # Loop over the tasks and calculate the difference between the end time of
@@ -83,11 +92,11 @@ def addIdleFeature(datalog):
         stop_time = datetime.strptime(t_stop, DATE_FORMAT)
         next_start_time = datetime.strptime(t_next_start, DATE_FORMAT)
         
-        #Idle must be 0 the working day change
+        # Idle must be 0 the working day change
         if stop_time.day != next_start_time.day:
             idle_duration = 0
         else:
-            #Calculate the difference bewteen the stoping and starting time
+            # Calculate the difference bewteen the stoping and starting time
             idle_duration = (next_start_time - stop_time).total_seconds();
         
         datalog['idle_after_task'].append(idle_duration)
@@ -105,10 +114,10 @@ def addAPMFeature(datalog):
         print("Duration feature must me added before. Abort.")
         return
     
-    #Add the new feature
+    # Add the new feature
     datalog['apm'] = []
     
-    #Iterate through both the keystrokes number and duration
+    # Iterate through both the keystrokes number and duration
     for nb_key_strokes, duration in zip(datalog[ params.NB_KSTROKES_STR ] , datalog[ params.DURATION_STR ] ):
         if duration == 0:
             apm = 0
