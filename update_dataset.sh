@@ -2,10 +2,10 @@
 #
 # In case any of the hyper-parameters is modified in 
 # the way the csv file is mapped into descriptors, 
-# I need to update the relating vairables
+# I need to update the relating variables
 #
-# Also, this affects descriptor distributions and like
-# so we also update metadata
+# Also, this affects descriptor distributions and the like
+# so I also update the metadata
 #
 ##################################################
 python3 descriptor_extractor.py
