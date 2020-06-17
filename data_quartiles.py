@@ -4,6 +4,10 @@
 Created on Mon Jul 22 09:50:46 2019
 
 @author: florianpgn
+
+This function computes the Q-quartiles from the cdf. In what follows, 
+Q is nb_bins. Note that if number of data points is not enough, than 
+the cdf may not be binned into that particular nb_bins. 
 """
 
 import numpy as np
@@ -65,11 +69,11 @@ def get_quartiles(data, nb_bins, dispay_graph = True):
     cdf += offset_value
     
     """
-    If number of data points is not enough, than that the cdf may not be binned 
+    If number of data points is not enough, than the cdf may not be binned 
     into that particular nb_bins
     """
     if len(np.unique(th)) < len(th):
-        print('Cannot quantize into {}'.format(nb_bins))        
+        print('Cannot compute Q quartiles into {}'.format(nb_bins))        
         sys.exit()
 
     """
