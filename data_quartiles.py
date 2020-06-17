@@ -32,7 +32,8 @@ def get_quartiles(data, nb_bins, dispay_graph = True):
     cdf = np.cumsum(hist)
     
     """
-    Remove offset because it makes things simpler for getting the intercepts
+    You may remove offset because it may make things simpler for getting the 
+    intercepts
     """
     offset_value = 0
     if params.REMOVE_OFFSET:
