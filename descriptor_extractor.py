@@ -6,15 +6,16 @@ Created on Fri Jun 28 09:28:10 2019
 @author: florianpgn
 """
 
+import numpy as np
+
 from csv_read import readData
 from importlib import reload
 from define_names import define_names
 
 import re
-import numpy as np
 import h5py_file_tool as hft
 import params
-import data_quantize
+import data_quartiles
 import data_post_processing as post_pro
 
 reload(params)    
@@ -86,15 +87,15 @@ if __name__ == "__main__":
     
     print('Keystrokes')
     keystrokes = np.array([int(n) for n in data[params.NB_KSTROKES_STR]])
-    keystrokes = data_quantize.quantize(keystrokes, params.N_BINS_KSTROKES, False)
+    keystrokes = data_quartiles.get_quartiles(keystrokes, params.N_BINS_KSTROKES, False)
     
     print('Duration')
     duration = data[params.DURATION_STR]
-    duration = data_quantize.quantize(duration, params.N_BINS_DURATION, False)
+    duration = data_quartiles.get_quartiles(duration, params.N_BINS_DURATION, False)
     
     print('L clicks')
     l_clicks = np.array([int(n) for n in data[params.NB_LCLICK_STR]])
-    l_clicks = data_quantize.quantize(l_clicks, params.N_BINS_LCLICKS, False)
+    l_clicks = data_quartiles.get_quartiles(l_clicks, params.N_BINS_LCLICKS, False)
     
     r_clicks = np.array([int(n) for n in data[params.NB_RCLICK_STR]])
     ## You may also try to binarize right clicks
