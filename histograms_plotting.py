@@ -7,18 +7,17 @@ Created on Wed Jul 24 14:23:21 2019
 """
 import numpy as np
 
-from importlib import reload
-import params
-reload(params)    
+from prettytable import PrettyTable
 
 from csv_read import readData
 import data_post_processing as post_pro
-from prettytable import PrettyTable
 import task_classification
 import h5py_file_tool as hft
 import distribution_visualizer
 
-
+from importlib import reload
+import params
+reload(params)   
 
 def joinTitles(titles):
     return '/'.join(titles[:len(titles)-np.sum(titles=='')])
@@ -39,14 +38,21 @@ def printTable(uniques_tasks, conf_mat):
     print(conf_table)
 
 
-data = readData(params.ANNOTATION_FILE)
-data = post_pro.addDurationFeature(data)
 
+
+"""
+Actually, the below is not part of the analysis. It rather serves to display an 
+example of computing the Q-quartiles. 
+
+Specifically, it is for reproducing the graph given in Appendix-I (Pre-processing
+of quantitaive variables). The below saves the data points into a file, which is
+later used in a gnu-plot script.
+"""
+
+data = readData( params.ANNOTATION_FILE )
+data = post_pro.addDurationFeature( data ) # Just putting the data into a 'good' shape
 titles = hft.load(params.PATH_TITLE[6:]+params.NEW_DAT+params.TITLE_MAT)
-
 data[params.WINDOW_STR] = [joinTitles(t) for t in titles]
-
-
 array = list(map(int, data[params.DURATION_STR]))
 
 y, x = np.histogram(array, bins=np.arange(np.max(array), step=1)+1) 
@@ -57,9 +63,15 @@ for i in range(len(x)):
     f.write(str(x[i])+'\t'+str(y[i])+'\n')
 f.close()
 
+"""
+This part compares the estimated tasks through assoc rules (and relating post 
+proc) to the manual annotations and displays the confusion matrix.
 
-auto = np.array(data[params.AUTO_TASK_STR])
-hand = np.array(data[params.HAND_TASK_STR])
+auto refers to automatic annoattion (with the assoc rules and relating post-proc)
+hand refers to manual annotation
+"""
+auto = np.array(data[params.AUTO_TASK_STR]) 
+hand = np.array(data[params.HAND_TASK_STR]) 
 unique_tasks = np.unique(hand)
 n_tasks = len(unique_tasks)
 conf_mat = np.zeros((n_tasks, n_tasks))
