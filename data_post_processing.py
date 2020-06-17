@@ -6,9 +6,9 @@ Created on Wed May 22 13:19:42 2019
 @author: florianpgn
 """
 from datetime import datetime #There is a datetime module in datetime...
-from importlib import reload
-import params
 
+import params
+from importlib import reload
 reload(params)
 
 
