@@ -7,12 +7,12 @@ Created on Mon Jul 22 09:50:46 2019
 """
 
 import numpy as np
-import params
-import matplotlib.pyplot as plt
-from importlib import reload
 import sys
 import random
+import matplotlib.pyplot as plt
 
+import params
+from importlib import reload
 reload(params)
 
 
