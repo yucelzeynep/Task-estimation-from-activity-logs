@@ -11,7 +11,6 @@ from params import COL_NAMES
 
 import h5py
 
-
 def scanfMat(filename):
     """
     Build a np.array variable from a file
@@ -25,6 +24,10 @@ def scanfMat(filename):
 
 
 def readData(fname): 
+    """
+    This function reads the raw log of the TaskPit, which is a csv file, and 
+    builds a variable that can be processed.
+    """
     
     # Open file and read column names and data block 
     f = open(fname) 
@@ -32,15 +35,18 @@ def readData(fname):
     data_block = f.readlines()  # read all following lines
     f.close() 
     
-    # Create a data dictionary, containing 
-    # a list of values for each variable 
-    # Add an entry to the data dictionary for each column 
+    """
+    Create a data dictionary, containing a list of values for each variable.
+    Add an entry to the data dictionary for each column 
+    """
     datalog = {} 
     for col_name in COL_NAMES: 
         datalog[col_name] = []
     datalog['window_title'] = []
    
-    # Loop through each value: append to each column 
+    """
+    Loop through each value and append to each respective column 
+    """
     line_count = 0
     seperator = ';'
     for line in data_block: 
@@ -51,7 +57,11 @@ def readData(fname):
             print('Size mismatch: size is  {} instead of {} '.format(len( items ), len(COL_NAMES)))
             
         for n, item in enumerate(items):        
-            # We need to split the 'exe_name" column in two different columns 
+            """
+            We need to split the 'exe_name" column into two different columns. 
+            Because TaskPit registers the exe name and the window title into the
+            same column
+            """
             if n == COL_NAMES.index('exe_name') :
                 datalog['exe_name'].append( item.split(':', 1)[0])
                 datalog['window_title'].append( item.split(':', 1)[1])
@@ -59,12 +69,9 @@ def readData(fname):
             else:
                 datalog[ COL_NAMES[n] ].append( item.rstrip('\n') )
                 
-
         line_count += 1
             
     return datalog 
-        
-
 
 def decode(value):
     if isinstance(value, np.ndarray):
@@ -72,6 +79,9 @@ def decode(value):
     return value.decode('utf-8') if isinstance(value, bytes) else value
 
 def load(filename):
+    """
+    This function deals with different file formats, encodings. 
+    """
     f = h5py.File(filename+'.dat', 'r')
 
     """
@@ -96,6 +106,9 @@ def load(filename):
         return tuple(data)
     
 def save(filename, dataset, datasetNames):
+    """
+    Finally create the data set (ready to be processed) and save it
+    """
     with h5py.File(filename+'.dat', 'w') as f:
         for index, name in enumerate(datasetNames):
             f.create_dataset(name, data=[dataset[index]])
