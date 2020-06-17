@@ -13,7 +13,7 @@ reload(params)
 
 from csv_read import readData
 import data_post_processing as post_pro
-import task_classification
+import classifier_tools
 import h5py_file_tool as hft
 
 
