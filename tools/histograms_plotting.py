@@ -9,10 +9,15 @@ import numpy as np
 
 from prettytable import PrettyTable
 
-from csv_read import readData
+import sys
+sys.path.insert(0, '../') 
+sys.path.insert(0, '../tools/') 
+sys.path.insert(0, '../data_formatting/') 
+
+from file_tools import readData
 import data_post_processing as post_pro
-import classifier_tools
-import h5py_file_tool as hft
+#import classifier_tools
+import file_tools as hft
 import distribution_visualizer
 
 from importlib import reload
@@ -89,9 +94,9 @@ printTable(unique_tasks, conf_mat)
 printTable(unique_tasks, conf_mat_s)
 
 """
-task_classification.kNN(data)
-task_classification.randomForest(data)
-task_classification.svm(data)
+classifier_tools.kNN(data)
+classifier_tools.randomForest(data)
+classifier_tools.svm(data)
 """
 
 distribution_visualizer.displayDurationDensities(data)
