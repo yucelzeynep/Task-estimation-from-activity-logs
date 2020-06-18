@@ -11,13 +11,11 @@ import numpy as np
 import sys
 sys.path.insert(0, '../') 
 
+import dic_tools as dt
+
 from importlib import reload
 import params
 reload(params)
-
-import dic_tools as dt
-
-
 
 def get_prior_task(tasks):
 

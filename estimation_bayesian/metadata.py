@@ -12,6 +12,8 @@ import numpy as np
 
 import sys
 sys.path.insert(0, '../') 
+sys.path.insert(0, '../tools/') 
+sys.path.insert(0, '../data_formatting/') 
 
 import define_names
 import file_tools as hft
