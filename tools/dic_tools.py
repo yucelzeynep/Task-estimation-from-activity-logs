@@ -10,6 +10,9 @@ dictionary variables and (ii) which carry out trivial operations on those
 """
 import numpy as np
 
+import sys
+sys.path.insert(0, '../') 
+
 import params
 from importlib import reload
 reload(params)
