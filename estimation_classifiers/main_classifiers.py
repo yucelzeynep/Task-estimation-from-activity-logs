@@ -7,14 +7,19 @@ Created on Thu Aug  8 14:49:00 2019
 """
 import numpy as np
 
+import sys
+sys.path.insert(0, '../') 
+sys.path.insert(0, '../tools/') 
+sys.path.insert(0, '../data_formatting/') 
+
 from importlib import reload
 import params
 reload(params)
 
-from csv_read import readData
+from file_tools import readData
 import data_post_processing as post_pro
 import classifier_tools
-import h5py_file_tool as hft
+import file_tools as hft
 
 
 def joinTitles(titles):
@@ -54,6 +59,6 @@ if not params.HIERARCHICAL:
 titles = hft.load(params.PATH_TITLE[6:]+params.DAT_FILE_PREFIX+params.TITLE_MAT)
 data[params.WINDOW_STR] = [joinTitles(t) for t in titles]
 
-task_classification.kNN(data, multi=False)
-task_classification.randomForest(data, multi=False)
-task_classification.svm(data, multi=False)
+classifier_tools.kNN(data, multi=False)
+classifier_tools.randomForest(data, multi=False)
+classifier_tools.svm(data, multi=False)

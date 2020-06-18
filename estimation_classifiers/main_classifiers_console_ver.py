@@ -20,9 +20,6 @@ import re
 import sys
 import params
 
-"""
-
-"""
 def setup_params(stage, file):
     """
     Update param values
