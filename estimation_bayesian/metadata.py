@@ -52,7 +52,7 @@ task_table = PrettyTable()
 task_table.field_names = ['Code', 'Name', 'Count', 'Ratio']
 print('******************************')
 print('Distibution of principal tasks')
-for i, task in enumerate(TASKS, 1):
+for i, task in enumerate(params.TASKS, 1):
     task_table.add_row([i, task, count_task[task], round(percent_task[task],3)])
 print(task_table)
 
