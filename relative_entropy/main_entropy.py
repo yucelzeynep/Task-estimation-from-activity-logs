@@ -7,13 +7,18 @@ Created on Tue May 21 08:50:23 2019
 """
 import numpy as np
 
+import sys
+sys.path.insert(0, '../') 
+sys.path.insert(0, '../tools/') 
+sys.path.insert(0, '../data_formatting/') 
+
 import params
 from importlib import reload
 reload(params)
 
 from matplotlib import pyplot as plt
 
-import h5py_file_tool as hft
+import file_tools as hft
 import rel_ent_dist as red
 from define_names import define_names 
 
