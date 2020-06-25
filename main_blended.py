@@ -29,18 +29,7 @@ reload(params)
 
 
 
-def getLikelihood(conditionals):
-    """
-    Likelihood is sometimes 0, if the exe occurs only once or window title is 
-    unknown. In order to avoid the probablity to drop down to 0 for a single case,
-    I initilize likelihood to 1 and multiply with the conditional, only if it 
-    is not 0. So I avoid making likelihood 0 and the posterior NaN 
-    """
-    likelihood = 1
-    for c in conditionals:
-        likelihood *= c
-    likelihood = round(likelihood, 4) # only for better readability on console
-    return likelihood
+
       
 def selectConditionals(descriptors, conditionals, sample_index, task, exes, windows):
     """
@@ -169,7 +158,7 @@ if __name__ == "__main__":
             selected_conditionals_s1 = selectConditionals(params.STAGE_1_DESCRIPTORS, \
                                                           conditionals_s1, i, task, \
                                                           exes, title_codes)
-            likelihood[i][task] = getLikelihood(selected_conditionals_s1)
+            likelihood[i][task] = btools.get_likelihood(selected_conditionals_s1)
             
             ####################################
             # get posterior
@@ -189,7 +178,7 @@ if __name__ == "__main__":
                     prior_updated = prior_task_single_label_s2
                     
                 selected_conditionals_s2 = selectConditionals(params.STAGE_2_DESCRIPTORS, conditionals_s2, i, task, exes, title_codes)
-                likelihood[i][task] = getLikelihood(selected_conditionals_s2)
+                likelihood[i][task] = btools.get_likelihood(selected_conditionals_s2)
                 
                 posterior[i][task] = likelihood[i][task] * prior_updated[task]
         #print(posterior)

@@ -215,6 +215,19 @@ def get_p_duration_given_task(tasks, duration, unique_tasks=TASKS):
 
     return p_duration_given_task
 
+def get_likelihood(conditionals):
+    """
+    Likelihood is sometimes 0, if the exe occurs only once or window title is 
+    unknown. In order to avoid the probablity to drop down to 0 for a single case,
+    I initilize likelihood to 1 and multiply with the conditional, only if it 
+    is not 0. So I avoid making likelihood 0 and the posterior NaN 
+    """
+    likelihood = 1
+    for c in conditionals:
+        likelihood *= c
+    likelihood = round(likelihood, 4) # only for better readability on console
+    return likelihood
+
 """
 Note that the three functions below essentially carry out the same operations:
     get_conditional_s1: is called at stage1
