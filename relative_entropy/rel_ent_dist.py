@@ -68,6 +68,7 @@ def get_mutual_inf(jointProb, q1, q2):
                  mutual_inf += jointProb[i,j]*np.log(jointProb[i,j] / q1[i] / q2[j])
      return mutual_inf
 
+
 def get_joint_ent(jointProb, q1, q2):
      """
      Takes only joint pdf. Scaled to 1 as above.
