@@ -119,13 +119,13 @@ def get_p_exe_given_task(tasks, exes, exe_names, unique_tasks=TASKS):
     p_exe_given_task = dtools.init_dic_matrix(unique_tasks, exe_names)
 
     for e in exe_names:
-        for task in TASKS:
-            p_exe_given_task[e][task] = np.sum(
+        for task in unique_tasks:
+            p_exe_given_task[task][e] = np.sum(
                     np.logical_and(
                             exes == e, 
                             tasks == task))
 
-        p_exe_given_task[e] = dtools.normalize(p_exe_given_task[e])
+        p_exe_given_task[task] = dtools.normalize(p_exe_given_task[task])
     
     return p_exe_given_task 
 
@@ -142,22 +142,22 @@ def get_p_window_given_task(tasks, windows, window_names, unique_tasks=TASKS):
     """ 
 
     p_window_given_task = dtools.init_dic_matrix(unique_tasks, window_names) # + class for unknown titles
-    # first unknown titles (i.e. alien titles) and known tasks
-    for task in TASKS:
-        p_window_given_task[''][task] = np.sum(np.logical_and(
+    # first unknown titles and known tasks
+    for task in unique_tasks:
+        p_window_given_task[task][''] = np.sum(np.logical_and(
                 windows == '',
                 tasks == task))
-    p_window_given_task[''] = dtools.normalize(p_window_given_task[''])
+    p_window_given_task[task] = dtools.normalize(p_window_given_task[task])
 
     # then known titles and known tasks
     for w in window_names:
-        for task in TASKS:
+        for task in unique_tasks:
             temp_window = windows == w
 
             temp_task = tasks == task
             
-            p_window_given_task[w][task] = np.sum(np.logical_and(temp_window, temp_task)) 
-        p_window_given_task[w] = dtools.normalize(p_window_given_task[w])
+            p_window_given_task[task][w] = np.sum(np.logical_and(temp_window, temp_task)) 
+        p_window_given_task[task] = dtools.normalize(p_window_given_task[task])
 
     return p_window_given_task
 
@@ -177,7 +177,7 @@ def get_p_exe_window_given_task(tasks, exes, exe_names, windows, window_names, u
     """ 
     
     p_exe_window_given_task = dict()
-    for task in TASKS:
+    for task in unique_tasks:
         p_exe_window_given_task[task] = dict()
         for exe in exe_names:
             p_exe_window_given_task[task][exe] = dict()
@@ -187,7 +187,7 @@ def get_p_exe_window_given_task(tasks, exes, exe_names, windows, window_names, u
                                 exes == exe, 
                                 windows == title, 
                                 tasks == task)))
-        p_exe_window_given_task[task] = dt.normalize2D(p_exe_window_given_task[task])
+        p_exe_window_given_task[task] = dtools.normalize2D(p_exe_window_given_task[task])
             
     return p_exe_window_given_task 
 
@@ -230,14 +230,14 @@ There are only some minor differences between them, namely possible task outcome
 def get_conditional_s1(tasks, exes, windows, keystrokes_quan, lunch, duration, \
                        l_clicks, r_clicks, exe_names, window_names):
     
-        get_conditional(tasks, exes, windows, keystrokes_quan, lunch, duration, \
+        return get_conditional(tasks, exes, windows, keystrokes_quan, lunch, duration, \
                         l_clicks, r_clicks, exe_names, window_names, 
                         unique_tasks=params.TASKS_S1)
         
 def get_conditional_s2(tasks, exes, windows, keystrokes_quan, lunch, duration, \
                        l_clicks, r_clicks, exe_names, window_names):
     
-        get_conditional(tasks, exes, windows, keystrokes_quan, lunch, duration, \
+        return get_conditional(tasks, exes, windows, keystrokes_quan, lunch, duration, \
                         l_clicks, r_clicks, exe_names, window_names, 
                         unique_tasks=params.TASKS_S2)
 

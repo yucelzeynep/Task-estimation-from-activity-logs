@@ -19,7 +19,7 @@ import tools_dic as dtools
 import tools_file as ftools
 import tools_bayes as btools
 import tools_rule as rtools
-
+import tools_presentation as ptools
 
 from prettytable import PrettyTable
 
@@ -27,30 +27,26 @@ from importlib import reload
 import params
 reload(params)
 
-#Display a confusion matrix
-def printTable(uniques_tasks, conf_mat):
-    conf_table = PrettyTable()
-    fields = uniques_tasks.copy()
-    fields = np.insert(fields, 0, 'Task')
-    conf_table.field_names = fields
-    for i, task in enumerate(uniques_tasks):
-        row = [round(conf_mat[i,j],3) for j in range(len(conf_mat))]
-        row.insert(0, task)
-        conf_table.add_row(row)
-    print(conf_table)
+
 
 def getLikelihood(conditionals):
-    # likelihood is sometimes 0, if the exe occurs only once 
-    # or window title is unknown
-    # so I initilize likelihood to 1 and multiply with the conditional if it is not 0.
-    # so I avoid making lielihood 0 and the posterior NaN 
+    """
+    Likelihood is sometimes 0, if the exe occurs only once or window title is 
+    unknown. In order to avoid the probablity to drop down to 0 for a single case,
+    I initilize likelihood to 1 and multiply with the conditional, only if it 
+    is not 0. So I avoid making likelihood 0 and the posterior NaN 
+    """
     likelihood = 1
     for c in conditionals:
         likelihood *= c
-    likelihood = round(likelihood, 4) # TO BE DELETED (here for readability in console)
+    likelihood = round(likelihood, 4) # only for better readability on console
     return likelihood
       
 def selectConditionals(descriptors, conditionals, sample_index, task, exes, windows):
+    """
+    Simply for running at once a bunch of functions relating the chosen 
+    descriptors
+    """
     selected_conditionals = []    
     
     if params.EXES in descriptors:
@@ -83,11 +79,9 @@ if __name__ == "__main__":
     
     start_time = time.time()
     
-    
-    ########################################
-    #
-    # load activity data and do definitions
-    #
+    """
+    load activity data and set the definitions
+    """
     exes = ftools.load(params.PATH_EXE+params.DAT_FILE_PREFIX+params.EXE_MAT)
     windows = ftools.load(params.PATH_TITLE+params.DAT_FILE_PREFIX+params.TITLE_MAT)
     tasks = ftools.load(params.PATH_TASK+params.DAT_FILE_PREFIX+params.TASK_MAT)
@@ -97,7 +91,7 @@ if __name__ == "__main__":
     r_clicks = ftools.load(params.PATH_CLICKS+params.NEW_DAT+params.RCLICK_MAT)
     duration = ftools.load(params.PATH_DURATION+params.NEW_DAT+params.DURATION_MAT)
     
-    (exe_names, window_names, time_names, level_of_assoc) = define_names()
+    (exe_names, window_names, time_names, level_of_assoc) = dtools.define_names()
     
     title_combinations = np.unique([ftools.joinTitles(t) for t in windows])
     title_codes = np.array([ftools.joinTitles(t) for t in windows])
@@ -114,31 +108,34 @@ if __name__ == "__main__":
     
         
     
-    ########################################
-    # get priors and conditional probabilities
-    #
+    """
+    get priors and conditional probabilities
+    """
     prior_task_single_label_s1 = btools.get_prior_task(tasks_s1)
     prior_task_single_label_s2 = btools.get_prior_task(tasks_s2)
     
     
-    #Conditionals stage 1
-    conditionals_s1 = btools.get_conditional_s1(tasks_s1, exes, title_codes, 
-                       keystrokes_quan, lunch, duration, l_clicks, r_clicks, exe_names, title_combinations)
-    #Conditionals stage 2
-    conditionals_s2 = btools.get_conditional_s2(tasks_s2,
-                                      exes[others_query], 
-                                      title_codes[others_query], 
-                                      keystrokes_quan[others_query],
-                                      lunch[others_query], 
-                                      duration[others_query],
-                                      l_clicks[others_query],
-                                      r_clicks[others_query],
-                                      exe_names, 
+    """
+    Conditionals stage 1
+    """
+    conditionals_s1 = btools.get_conditional_s1(tasks_s1, exes, title_codes, \
+                       keystrokes_quan, lunch, duration, l_clicks, \
+                       r_clicks, exe_names, title_combinations)
+    """
+    Conditionals stage 2
+    """
+    conditionals_s2 = btools.get_conditional_s2(tasks_s2, exes[others_query], \
+                                      title_codes[others_query], \
+                                      keystrokes_quan[others_query], \
+                                      lunch[others_query], \
+                                      duration[others_query], \
+                                      l_clicks[others_query], \
+                                      r_clicks[others_query], \
+                                      exe_names, \
                                       title_combinations)
-    ########################################
-    #
-    # get posterior
-    #
+    """
+    get posterior
+    """
     n_actions = len(exes) #  or any other matrix
     likelihood = dtools.init_matrix(n_actions, params.TASKS_S1) #TASKS_S1 is not needed, but it makes debug easier when looking at the data
     posterior = dtools.init_matrix(n_actions)
@@ -169,7 +166,9 @@ if __name__ == "__main__":
             ####################################
             # get likelihood
             #
-            selected_conditionals_s1 = selectConditionals(params.STAGE_1_DESCRIPTORS, conditionals_s1, i, task, exes, title_codes)
+            selected_conditionals_s1 = selectConditionals(params.STAGE_1_DESCRIPTORS, \
+                                                          conditionals_s1, i, task, \
+                                                          exes, title_codes)
             likelihood[i][task] = getLikelihood(selected_conditionals_s1)
             
             ####################################
@@ -224,7 +223,7 @@ if __name__ == "__main__":
                                                   exe_and_keyst_rules, 
                                                   exe_and_lunch_rules), dtype='<U14')
     
-        #Pad with unknows
+        # Pad with unknowns
         pad = est_task.tolist().copy()
         pad += [params.UNKNOWN] * (params.N_MAX_EST-len(est_task))
         est_by_rules_direct.append(pad)
@@ -250,10 +249,10 @@ if __name__ == "__main__":
             print('Probably a bug!')
         
     
-    ########################################
-    #
-    # analyze estimation
-    #
+    """
+    Analyze and compare the estimations obtained by the benchmark method and
+    proposed method
+    """
     # by direct application of rules
     print('==========================================')
     print('Applying the rules directly')
@@ -271,7 +270,9 @@ if __name__ == "__main__":
     print('After refining the initial estimation')
     nest_count = rtools.analyze_rule_based_estimations(tasks, est_by_post_prob)
     
-        
+    """
+    Present the results in a nice and readable way
+    """
     #Compute confusion matrix
     predicted_task = np.array(est_by_bayes_direct)
     unique_tasks = np.unique(tasks)
@@ -287,12 +288,12 @@ if __name__ == "__main__":
           
     #Display confusion matrix
     print('\n\t\t\tLabeled task ')
-    printTable(unique_tasks, conf_mat)
-    printTable(unique_tasks, conf_mat_s)
+    ptools.printTable(unique_tasks, conf_mat)
+    ptools.printTable(unique_tasks, conf_mat_s)
     
     precision = np.sum([conf_mat_s[i,i] for i in range(len(conf_mat_s))])/np.sum(conf_mat_s)
     print('Precision : {:.4f}'.format(precision))
     ########################################
-    #
-    #x = time.time() - start_time
-    #print('Time elapsed {} sec'.format(x))
+    
+    x = time.time() - start_time
+    print('Time elapsed {} sec'.format(x))

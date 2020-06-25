@@ -34,9 +34,13 @@ if __name__ == "__main__":
             At stage-1, anything that is not Document or Test, needs to be renamed 
             as Others
             """
-            for p in [params.HAND_TASK_STR, params.EST_1_STR, params.EST_2_STR, params.EST_3_STR]:
+            for p in [params.HAND_TASK_STR, params.EST_1_STR, \
+                      params.EST_2_STR, params.EST_3_STR]:
+                
                 data[p] = np.array(data[p])
-                data[p][np.invert(np.logical_or(data[p] == params.TEST, data[p] == params.DOCUMENT))] = params.OTHER
+                
+                data[p][np.invert(np.logical_or(data[p] == params.TEST, \
+                     data[p] == params.DOCUMENT))] = params.OTHER
         else:
             """
             At stage-2, we filter out the rows that are labeled Document or Test
@@ -48,7 +52,7 @@ if __name__ == "__main__":
                 data[k] = np.array(data[k])[query_array]
     
     
-    titles = ftools.load(params.PATH_TITLE[6:]+params.DAT_FILE_PREFIX+params.TITLE_MAT)
+    titles = ftools.load(params.PATH_TITLE+params.DAT_FILE_PREFIX+params.TITLE_MAT)
     data[params.WINDOW_STR] = [ftools.joinTitles(t) for t in titles]
     
     ctools.kNN(data, multi=False)

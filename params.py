@@ -8,9 +8,9 @@ Created on Fri Jun 28 10:48:22 2019
 """
 Manual annotation files
 """
-FILE_DEV = 'shimizu_annotation_dev.csv'
-FILE_LEADER = 'shimizu_annotation_lead.csv'
-FILE_BOTH = 'shimizu_annotation_combined.csv'
+FILE_DEV = 'data/annotation_dev.csv'
+FILE_LEADER = 'data/annotation_lead.csv'
+FILE_BOTH = 'data/annotation_combined.csv'
 
 """
 Descriptors
@@ -58,6 +58,9 @@ USE_REL_DESC = True
 Preferences relating the hierrachical framework
 As descriptos, by default, we have 2D desciptor at stage-1 and 2 1D descriptors 
 at stage-2.
+By default-->
+STAGE_1_DESCRIPTORS = [EXES_WINDOWS]
+STAGE_2_DESCRIPTORS = [EXES, WINDOWS]
 """
 
 STAGE_1_DESCRIPTORS = [EXES_WINDOWS]
@@ -121,13 +124,13 @@ NEW_DAT = 'new_'
 DAT_FILE_PREFIX = NEW_DAT
 
 # Path for dat files
-PATH_TASK = '../../task_codes/'
-PATH_TITLE = '../../windowtitle_codes/'
-PATH_EXE = '../../exe_codes/'
-PATH_KSTROKES = '../../keystrokes/'
-PATH_LUNCH = '../../lunch_codes/'
-PATH_CLICKS = '../../clicks/'
-PATH_DURATION = '../../duration/'
+PATH_TASK = 'mapping_descriptors/'
+PATH_TITLE = 'mapping_descriptors/'
+PATH_EXE = 'mapping_descriptors/'
+PATH_KSTROKES = 'mapping_descriptors/'
+PATH_LUNCH = 'mapping_descriptors/'
+PATH_CLICKS = 'mapping_descriptors/'
+PATH_DURATION = 'mapping_descriptors/'
 
 # CSV feature names
 TASK_STR = 'task_name'

@@ -26,8 +26,8 @@ def define_rules():
     ['ipmsg', params.ADMIN, params.UNKNOWN, params.UNKNOWN],
     ['msimn', params.ADMIN, params.UNKNOWN, params.UNKNOWN],
     ['sakura',params.PROG, params.TEST, params.DOCUMENT],
-    ['editplus',params. params.DOCUMENT, params.UNKNOWN, params.UNKNOWN],
-    ['taskpit', params.ADMIN, params.params.UNKNOWN, params.UNKNOWN]])
+    ['editplus',params.DOCUMENT, params.UNKNOWN, params.UNKNOWN],
+    ['taskpit', params.ADMIN, params.UNKNOWN, params.UNKNOWN]])
     
     title_only_rules = np.array([
     ['Test', params.TEST, params.DOCUMENT, params.UNKNOWN],
