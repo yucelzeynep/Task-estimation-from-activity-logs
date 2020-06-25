@@ -29,13 +29,12 @@ import params
 reload(params)
 
 
-
 if __name__ == "__main__":      
     
     start_time = time.time()
     
     """
-    load activity data and set the definitions
+    Load activity data and set the definitions
     """
     exes = ftools.load(params.PATH_EXE+params.DAT_FILE_PREFIX+params.EXE_MAT)
     windows = ftools.load(params.PATH_TITLE+params.DAT_FILE_PREFIX+params.TITLE_MAT)
