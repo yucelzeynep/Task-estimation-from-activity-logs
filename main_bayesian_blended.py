@@ -135,7 +135,6 @@ if __name__ == "__main__":
     likelihood = dtools.init_matrix(n_actions, params.TASKS_S1) # Actually, TASKS_S1 is not needed here, but it makes debug easier when looking at the data
     posterior = dtools.init_matrix(n_actions)
     
-    
     """
     Initialize the estimation arrays.
     
@@ -195,25 +194,18 @@ if __name__ == "__main__":
                 
                 posterior[i][task] = likelihood[i][task] * prior_updated[task]
         #print(posterior)
-        posterior[i] = dtools.normalize(posterior[i])  # scale the posterior to achieve a cumulative of 1
-        #p
-        #
-        #  of bayesian
-        #
-        ####################################
+        posterior[i] = dtools.normalize(posterior[i]) 
     
-        ######################################
-        #
-        # estimation by bayes directly
-        #s
+        """
+        Estimation by bayes directly
+        """
         posterior_wo_other = {k:v for k,v in posterior[i].items() if k != params.OTHER}
         tsk = dtools.arg_max(posterior_wo_other)
         est_by_bayes_direct.append(tsk)
         
-        ######################################
-        #
-        # estimation by applying the rules directly
-        # 
+        """
+        Estimation by applying the rules directly
+        """ 
         (exe_only_rules, title_only_rules, exe_and_title_rules, exe_and_keyst_rules, exe_and_lunch_rules) = rtools.define_rules()
         est_task = np.array(rtools.apply_rules_to_action( exes[i], 
                                                   windows[i], 
