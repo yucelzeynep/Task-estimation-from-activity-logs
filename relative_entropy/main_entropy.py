@@ -9,8 +9,7 @@ import numpy as np
 
 import sys
 sys.path.insert(0, '../') 
-sys.path.insert(0, '../tools/') 
-sys.path.insert(0, '../data_formatting/') 
+
 
 import params
 from importlib import reload
@@ -18,29 +17,27 @@ reload(params)
 
 from matplotlib import pyplot as plt
 
-import file_tools as hft
+import tools_file as ftools
 import rel_ent_dist as red
-from define_names import define_names 
+import tools_dic as dtools
 
 
-def joinTitles(titles):
-    return '/'.join(titles[:len(titles)-np.sum(titles=='')])
 
 if __name__ == "__main__":
     
     """
     Load all data
     """
-    exes = hft.load(params.PATH_EXE[6:]+params.DAT_FILE_PREFIX+params.EXE_MAT)
-    titles = hft.load(params.PATH_TITLE[6:]+params.DAT_FILE_PREFIX+params.TITLE_MAT)
-    tasks = hft.load(params.PATH_TASK[6:]+params.DAT_FILE_PREFIX+params.TASK_MAT)
-    keystrokes_quan = hft.load(params.PATH_KSTROKES[6:]+params.DAT_FILE_PREFIX+params.KSTROKE_MAT)
-    lunchs = hft.load(params.PATH_LUNCH[6:]+params.DAT_FILE_PREFIX+params.LUNCH_MAT)
-    l_clicks = hft.load(params.PATH_CLICKS[6:]+params.NEW_DAT+params.LCLICK_MAT)
-    r_clicks = hft.load(params.PATH_CLICKS[6:]+params.NEW_DAT+params.RCLICK_MAT)
-    duration = hft.load(params.PATH_DURATION[6:]+params.NEW_DAT+params.DURATION_MAT)
+    exes =  ftools.load('../' + params.PATH_EXE +params.DAT_FILE_PREFIX+params.EXE_MAT)
+    titles =  ftools.load('../' +params.PATH_TITLE +params.DAT_FILE_PREFIX+params.TITLE_MAT)
+    tasks =  ftools.load('../' +params.PATH_TASK +params.DAT_FILE_PREFIX+params.TASK_MAT)
+    keystrokes_quan =  ftools.load('../' +params.PATH_KSTROKES +params.DAT_FILE_PREFIX+params.KSTROKE_MAT)
+    lunchs =  ftools.load('../' +params.PATH_LUNCH +params.DAT_FILE_PREFIX+params.LUNCH_MAT)
+    l_clicks =  ftools.load('../' +params.PATH_CLICKS +params.NEW_DAT+params.LCLICK_MAT)
+    r_clicks =  ftools.load('../' +params.PATH_CLICKS +params.NEW_DAT+params.RCLICK_MAT)
+    duration =  ftools.load('../' +params.PATH_DURATION +params.NEW_DAT+params.DURATION_MAT)
     
-    exe_names, window_titles = define_names()[:2]
+    exe_names, window_titles = dtools.define_names()[:2]
     window_titles.insert(0,'') # for alien titles, i.e. not a known title
     
     
@@ -49,8 +46,8 @@ if __name__ == "__main__":
     """
     exe_codes = [exe_names.index(e)+1 for e in exes] #+1 because I don't want exes with ID code 0
     
-    title_combination = np.unique([joinTitles(t) for t in titles]).tolist()
-    title_codes = [title_combination.index(joinTitles(t)) for t in titles]
+    title_combination = np.unique([ftools.joinTitles(t) for t in titles]).tolist()
+    title_codes = [title_combination.index(ftools.joinTitles(t)) for t in titles]
 
     """
     #----------------------------------------------------------
