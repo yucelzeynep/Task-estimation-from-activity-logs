@@ -15,11 +15,11 @@ def compute_joint_histogram(data1, data2):
     Returns the 2D histogram
     """
     (min_bound, max_bound, bin_size) = getDataHistParams(data1)
-    n_bins = round((max_bound - min_bound) / bin_size) + 1
+    n_bins = int(round((max_bound - min_bound) / bin_size) + 1)
     edges1 = np.linspace(min_bound, max_bound, n_bins)
 
     (min_bound, max_bound, bin_size) = getDataHistParams(data2)
-    n_bins = round((max_bound - min_bound) / bin_size) + 1
+    n_bins = int(round((max_bound - min_bound) / bin_size) + 1)
     edges2 = np.linspace(min_bound, max_bound, n_bins)
      
     histogram2D, edges1, edges2 = np.histogram2d(data1, data2, 
@@ -32,7 +32,7 @@ def compute_histogram(data):
     Returns 1d histogram
     """
     (min_bound, max_bound, bin_size) = getDataHistParams(data)
-    n_bins = round((max_bound - min_bound) / bin_size) + 1
+    n_bins = int(round((max_bound - min_bound) / bin_size) + 1)
     edges = np.linspace(min_bound, max_bound, n_bins)
 
     histogram, edges = np.histogram(data, bins=edges)
