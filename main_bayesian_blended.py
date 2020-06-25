@@ -5,6 +5,11 @@ Created on Thu Jun  6 13:44:02 2019
 
 @author: florianpgn
 
+This function implements the proposed Bayesian approach. It also runs in 
+parallel the benchmark method such that a comparison between the two is provided.
+
+Please see below for detailed explanation concerning each step.
+
 Zeynep Yucel
 2018 01 08
 """
@@ -26,10 +31,6 @@ from prettytable import PrettyTable
 from importlib import reload
 import params
 reload(params)
-
-
-
-
       
 def selectConditionals(descriptors, conditionals, sample_index, task, exes, windows):
     """
@@ -69,7 +70,7 @@ if __name__ == "__main__":
     start_time = time.time()
     
     """
-    load activity data and set the definitions
+    Load activity data and set the definitions
     """
     exes = ftools.load(params.PATH_EXE+params.DAT_FILE_PREFIX+params.EXE_MAT)
     windows = ftools.load(params.PATH_TITLE+params.DAT_FILE_PREFIX+params.TITLE_MAT)
@@ -85,12 +86,18 @@ if __name__ == "__main__":
     title_combinations = np.unique([ftools.joinTitles(t) for t in windows])
     title_codes = np.array([ftools.joinTitles(t) for t in windows])
     
-    #Copies for stages
+    """
+    Initializations for the variables used in Bayesian estimation. Here, I basically
+    create empty instances of some dictionary variables, arrays etc
+    """
+    #Copies for the two stages
     tasks_s1 = tasks.copy()
     tasks_s2 = tasks.copy()
-    # In stage 1 we label everything but TEST and DOCUMENT with OTHER
+    
+    # In stage 1, we label everything but TEST and DOCUMENT with OTHER
     tasks_s1[np.invert(np.logical_or(tasks == params.TEST, tasks == params.DOCUMENT))] = params.OTHER
-    # In stage 2 we select all the samples where the associated task is PROG, ADMIN or LEISURE
+    
+    # In stage 2, we select all the samples where the associated task is PROG, ADMIN or LEISURE
     boolean_matrix = (tasks == np.array(params.TASKS_S2)[:,None])
     others_query = boolean_matrix.any(axis=0) # Logical or between rows
     tasks_s2 = tasks[others_query]
@@ -98,21 +105,20 @@ if __name__ == "__main__":
         
     
     """
-    get priors and conditional probabilities
+    We go on initializations but the below is not simply empty instances. I 
+    compute the priors and the conditionals which will be used for estimating 
+    the first action (and probably get updated from the second on).
+    
+    I first compute the priors and then conditional probabilities at stage-1 and 2.
     """
     prior_task_single_label_s1 = btools.get_prior_task(tasks_s1)
     prior_task_single_label_s2 = btools.get_prior_task(tasks_s2)
     
     
-    """
-    Conditionals stage 1
-    """
     conditionals_s1 = btools.get_conditional_s1(tasks_s1, exes, title_codes, \
                        keystrokes_quan, lunch, duration, l_clicks, \
                        r_clicks, exe_names, title_combinations)
-    """
-    Conditionals stage 2
-    """
+
     conditionals_s2 = btools.get_conditional_s2(tasks_s2, exes[others_query], \
                                       title_codes[others_query], \
                                       keystrokes_quan[others_query], \
@@ -123,50 +129,57 @@ if __name__ == "__main__":
                                       exe_names, \
                                       title_combinations)
     """
-    get posterior
+    Initialization for the posteriors
     """
     n_actions = len(exes) #  or any other matrix
-    likelihood = dtools.init_matrix(n_actions, params.TASKS_S1) #TASKS_S1 is not needed, but it makes debug easier when looking at the data
+    likelihood = dtools.init_matrix(n_actions, params.TASKS_S1) # Actually, TASKS_S1 is not needed here, but it makes debug easier when looking at the data
     posterior = dtools.init_matrix(n_actions)
     
-    # 1 col for line number, rest for estimations,
-    # 4 columsn for being safe
-    # actually number of maximum estimations is 3
+    
+    """
+    Initialize the estimation arrays.
+    
+    In est_by_rules_direct, I use use 1 column for line number,  4 columns for 
+    estimations. But actually number of maximum estimations is no more than 3.
+    This part is common with main_benchmark
+    """
     est_by_rules_direct = []
     est_by_bayes_direct = []
-    est_by_post_prob = []
     
     for i in range(n_actions):
-        ######################################
-        # bayesian estimation for this action
-        #
+        """
+        We first go through the two stages of Bayesian estimation. The below is stage-1
+        """
         for task in params.TASKS_S1:
-            ####################################
-            # get prior
-            #
-            # decide how you want to update !!
+            """
+            Get prior and decide how you want to update 
+            """
             if params.USE_DISTRIB_PROB:
-                prior_task_single_label_s1 = dtools.init_dic(1/len(np.unique(params.TASKS_S1)), params.TASKS_S1)
+                prior_task_single_label_s1 = dtools.init_dic(1/len(np.unique(params.TASKS_S1)), \
+                                                             params.TASKS_S1)
             if i>1:
-                prior_updated = dtools.add(dtools.mul(posterior[i-1], 1-params.ALPHA), dtools.mul(prior_task_single_label_s1, params.ALPHA))
+                prior_updated = dtools.add(dtools.mul(posterior[i-1], 1-params.ALPHA), \
+                                                      dtools.mul(prior_task_single_label_s1, params.ALPHA))
             else:
                 prior_updated = prior_task_single_label_s1
             
-            ####################################
-            # get likelihood
-            #
+            """
+            Get likelihood
+            """
             selected_conditionals_s1 = selectConditionals(params.STAGE_1_DESCRIPTORS, \
                                                           conditionals_s1, i, task, \
                                                           exes, title_codes)
             likelihood[i][task] = btools.get_likelihood(selected_conditionals_s1)
             
-            ####################################
-            # get posterior
-            #
+            """
+            Get posterior
+            """
             posterior[i][task] = likelihood[i][task] * prior_updated[task]
     
         
-        #Stage 2
+        """
+        Stage-2
+        """
         if dtools.arg_max(posterior[i]) == params.OTHER:
             #posterior[i][params.TEST] = posterior[i][params.DOCUMENT] = 0
             for task in params.TASKS_S2:
@@ -217,27 +230,6 @@ if __name__ == "__main__":
         pad += [params.UNKNOWN] * (params.N_MAX_EST-len(est_task))
         est_by_rules_direct.append(pad)
     
-        ######################################
-        #
-        # refine the estimation by bayesian approach
-        #
-        if len(est_task) == 1: # single estimation
-            est_by_post_prob.append(est_task[0])   # app the only estimation 
-    
-        elif len(est_task) == 0:#no estimation
-            # no estimation -> get the best decision out of posterior
-            est_by_post_prob.append(tsk)
-    
-        elif len(est_task) > 1: #  multiple estimation
-            # reduce the possibilites and get the highest from remaining
-            temp = [posterior_wo_other[t] for t in est_task] # get only those probabilities to compare (initially estimated by the rules)
-     
-            ind = np.argmax(temp)
-            est_by_post_prob.append(est_task[ind])
-        else:
-            print('Probably a bug!')
-        
-    
     """
     Analyze and compare the estimations obtained by the benchmark method and
     proposed method
@@ -246,19 +238,13 @@ if __name__ == "__main__":
     print('==========================================')
     print('Applying the rules directly')
     nest_count = rtools.analyze_rule_based_estimations(tasks, est_by_rules_direct)
-    
-    
+        
     # by direct application of belief propagation
     print('\n==========================================')
     print('Applying the belief propagation directly')
     nest_count = rtools.analyze_rule_based_estimations(tasks, est_by_bayes_direct)
     
-    
-    # by refining with bayesian approach
-    print('\n==========================================')
-    print('After refining the initial estimation')
-    nest_count = rtools.analyze_rule_based_estimations(tasks, est_by_post_prob)
-    
+        
     """
     Present the results in a nice and readable way
     """
