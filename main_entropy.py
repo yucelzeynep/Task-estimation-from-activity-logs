@@ -52,16 +52,6 @@ if __name__ == "__main__":
     
     title_combination = np.unique([ftools.joinTitles(t) for t in titles]).tolist()
     title_codes = [title_combination.index(ftools.joinTitles(t)) for t in titles]
-
-    """
-    #----------------------------------------------------------
-    # only those exe, lunch and keystroke for which titles are known
-    exe_codes = [exe_codes[i] for i in range(len(title_codes)) if title_codes[i] is not 0]
-    title_codes = [title_codes[i] for i in range(len(title_codes)) if title_codes[i] is not 0]
-    keystrokes_quan = [keystrokes_quan[i] for i in range(len(title_codes)) if title_codes[i] is not 0]
-    lunchs = [lunchs[i] for i in range(len(title_codes)) if title_codes[i] is not 0]
-    #----------------------------------------------------------
-    """
     descriptors = [exe_codes, title_codes, keystrokes_quan, \
                    l_clicks, r_clicks, duration] # eventually we omit lunch time info
     
