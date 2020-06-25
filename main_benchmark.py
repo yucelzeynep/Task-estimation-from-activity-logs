@@ -84,7 +84,7 @@ if __name__ == "__main__":
     
     
     """
-    Analyze obtained by the benchmark method
+    Analyze results obtained by the benchmark method
     """
     print('==========================================')
     print('Applying the rules directly')
