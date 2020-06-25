@@ -20,13 +20,13 @@ reload(params)
 
 from prettytable import PrettyTable
 
-from data_formatting import define_names
-from tools import file_tools as ftools
-from tools import dic_tools as dtools
+from data_formatting import descriptor_extractor
+import tools_file as ftools
+import tools_dic as dtools
 
 if __name__ == "__main__":      
 
-    (exe_names, window_names, time_names, level_of_assoc) = define_names.define_names()
+    (exe_names, window_names, time_names, level_of_assoc) = descriptor_extractor.define_names()
     
     exe_code_mat = ftools.load(params.PATH_EXE + params.DAT_FILE_PREFIX + params.EXE_MAT)
     title_code_mat = ftools.load(params.PATH_TITLE + params.DAT_FILE_PREFIX + params.TITLE_MAT)

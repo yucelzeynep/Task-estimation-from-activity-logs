@@ -4,21 +4,29 @@
 Created on Fri Jun 28 09:28:10 2019
 
 @author: florianpgn
+
+This file involves the functions to convert the raw descriptors (from the csv 
+files) to data files that can be readily loaded and processed in the rest of 
+the analysis.
 """
 
 import numpy as np
 
-from csv_read import readData
-from importlib import reload
-from define_names import define_names
 
 import re
-import h5py_file_tool as hft
-import params
 import data_quartiles
 import data_post_processing as post_pro
 
-reload(params)    
+from importlib import reload
+import params
+reload(params)   
+
+import sys
+sys.path.insert(0,'../')
+
+import tools_file as ftools 
+import tools_dic as dtools 
+
 
 
 def cleanExe(exe):
@@ -28,6 +36,18 @@ def cleanExe(exe):
     """
     exe = exe[:-4]
     return re.sub('[^A-Za-z0-9]+','', exe)
+
+def sort_by_frequency(table):	
+    """
+    Returns the number of occurences of each exe	
+    """
+    arr, counts = np.unique(table, return_counts=True)	
+    
+    #Minus because we want to order in decreasing order (most occurences to less)	
+    #Argsort so that it gives us the index of the exe which corresponds to the counter 	
+    sorted_counts = np.argsort(-counts)	
+    sorted_table = arr[sorted_counts]	
+    return sorted_table
 
 def sortExes(table):
     """
@@ -50,7 +70,7 @@ def getTitleCodes(window_title):
     Retrieve window title codes and do some further processing to deal with
     full-width/half-width katakana and character encoding
     """
-    title_names = define_names()[1]
+    title_names = dtools.define_names()[1]
     
     # We start at index 2 because Debug and Test need to be dealt with differently
     title_codes = [code.encode('utf-8') for code in title_names[2:] if code in window_title]
@@ -76,7 +96,7 @@ def timeToLunchCode(time) :
 
 if __name__ == "__main__":
       
-    data = readData(params.ANNOTATION_FILE)
+    data = ftools.readData('../'+params.ANNOTATION_FILE)
     data = post_pro.addDurationFeature(data)
         
     titles = np.array([getTitleCodes(title) for title in data[params.WINDOW_STR]])
@@ -110,11 +130,12 @@ if __name__ == "__main__":
         if params.STAGE == 1:
             tasks[np.invert(np.logical_or(tasks == params.TEST, \
                                           tasks == params.DOCUMENT))] = params.OTHER
-        """
-        In stage-2 we select all the samples, where the associated task is PROG, 
-        ADMIN or LEISURE
-        """
+
         else:
+            """
+            In stage-2 we select all the samples, where the associated task is PROG, 
+            ADMIN or LEISURE
+            """
             boolean_matrix = (tasks == np.array(params.TASKS)[:,None])
             query_array = boolean_matrix.any(axis=0) # Logical or between rows
             tasks = tasks[query_array]
@@ -133,20 +154,20 @@ if __name__ == "__main__":
     """
     Save features in .dat files
     """
-    hft.save(params.PATH_TASK[6:]+params.NEW_DAT+params.TASK_MAT, [tasks], [params.TASK_MAT])
-    hft.save(params.PATH_EXE[6:]+params.NEW_DAT+params.EXE_MAT, [exes], [params.EXE_MAT])
-    hft.save(params.PATH_TITLE[6:]+params.NEW_DAT+params.TITLE_MAT, [titles], [params.TITLE_MAT])
-    hft.save(params.PATH_LUNCH[6:]+params.NEW_DAT+params.LUNCH_MAT, [lunch], [params.LUNCH_MAT])
-    hft.save(params.PATH_DURATION[6:]+params.NEW_DAT+params.DURATION_MAT, [duration], [params.DURATION_MAT])
-    hft.save(params.PATH_KSTROKES[6:]+params.NEW_DAT+params.KSTROKE_MAT, [keystrokes], [params.KSTROKE_MAT])
-    hft.save(params.PATH_CLICKS[6:]+params.NEW_DAT+params.LCLICK_MAT, [l_clicks], [params.LCLICK_MAT])
-    hft.save(params.PATH_CLICKS[6:]+params.NEW_DAT+params.RCLICK_MAT, [r_clicks], [params.RCLICK_MAT])
+    ftools.save('../' + params.PATH_TASK +params.NEW_DAT+params.TASK_MAT, [tasks], [params.TASK_MAT])
+    ftools.save('../' + params.PATH_EXE +params.NEW_DAT+params.EXE_MAT, [exes], [params.EXE_MAT])
+    ftools.save('../' + params.PATH_TITLE +params.NEW_DAT+params.TITLE_MAT, [titles], [params.TITLE_MAT])
+    ftools.save('../' + params.PATH_LUNCH +params.NEW_DAT+params.LUNCH_MAT, [lunch], [params.LUNCH_MAT])
+    ftools.save('../' + params.PATH_DURATION +params.NEW_DAT+params.DURATION_MAT, [duration], [params.DURATION_MAT])
+    ftools.save('../' + params.PATH_KSTROKES +params.NEW_DAT+params.KSTROKE_MAT, [keystrokes], [params.KSTROKE_MAT])
+    ftools.save('../' + params.PATH_CLICKS +params.NEW_DAT+params.LCLICK_MAT, [l_clicks], [params.LCLICK_MAT])
+    ftools.save('../' + params.PATH_CLICKS +params.NEW_DAT+params.RCLICK_MAT, [r_clicks], [params.RCLICK_MAT])
     
-    with open(params.PATH_TITLE[6:]+params.NEW_DAT+params.TITLE_MAT+'.txt', 'w') as f:
+    with open('../'+params.PATH_TITLE +params.NEW_DAT+params.TITLE_MAT+'.txt', 'w') as f:
         for item in data[params.WINDOW_STR]:
             f.write("{}\n".format(item))
             
-    with open(params.PATH_KSTROKES[6:]+params.NEW_DAT+params.KSTROKE_MAT+'.txt', 'w') as f:
+    with open('../' + params.PATH_KSTROKES +params.NEW_DAT+params.KSTROKE_MAT+'.txt', 'w') as f:
         for item in keystrokes:
             f.write("{}\n".format(item))
 

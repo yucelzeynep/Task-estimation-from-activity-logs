@@ -18,7 +18,6 @@ import numpy as np
 
 import time
 
-from data_formatting import define_names
 import tools_dic as dtools
 
 import tools_file as ftools
