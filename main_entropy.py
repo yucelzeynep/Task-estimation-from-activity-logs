@@ -11,10 +11,6 @@ empirical manner.
 """
 import numpy as np
 
-import sys
-sys.path.insert(0, '../') 
-
-
 import params
 from importlib import reload
 reload(params)
