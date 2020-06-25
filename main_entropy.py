@@ -5,8 +5,9 @@ Created on Tue May 21 08:50:23 2019
 
 @author: zeynep
 
-This function computes the reltive entropy didtance between each pair of 
-descriptors.
+This function computes the reltive entropy distance between each pair of 
+descriptors. The decision on being whether depedent or not is made in an 
+empirical manner.
 """
 import numpy as np
 
