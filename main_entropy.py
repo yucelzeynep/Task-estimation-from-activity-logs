@@ -21,8 +21,6 @@ import tools_file as ftools
 import tools_entropy as etools
 import tools_dic as dtools
 
-
-
 if __name__ == "__main__":
     
     """
