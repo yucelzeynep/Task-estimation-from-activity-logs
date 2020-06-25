@@ -8,6 +8,10 @@ Created on Tue May 21 08:50:23 2019
 This function computes the reltive entropy distance between each pair of 
 descriptors. The decision on being whether depedent or not is made in an 
 empirical manner.
+
+Since this decision can be carried out prior to the estimation and the relating 
+settings in the parameters file can be adjusted accordingly, we realize it in
+an offline manner.
 """
 import numpy as np
 
