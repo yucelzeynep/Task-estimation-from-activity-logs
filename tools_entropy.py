@@ -4,6 +4,12 @@
 Created on Tue Jul 16 10:57:16 2019
 
 @author: florianpgn
+
+This file contains the functions to compute relative entropy distance so as to 
+judge in/dependence. 
+
+computing mutual information and joint entropy are the essential steps and there
+are also some other trivial functions to for computing the 1D/2D histograms etc. 
 """
 import numpy as np
 
