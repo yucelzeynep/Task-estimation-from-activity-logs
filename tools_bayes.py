@@ -9,28 +9,43 @@ Created on Mon Jul 22 15:37:26 2019
 
 import numpy as np
 
-import sys
-sys.path.insert(0, '../') 
-sys.path.insert(0, '../tools/') 
-
-
-import dic_tools as dt
+import tools_dic as dtools
+from params import TASKS
 
 import params
 from importlib import reload
 reload(params)
 
-def get_p_keyst_given_task(tasks, keystrokes_quan, n_tot_keyst, unique_tasks):
+def get_prior_task(tasks):
     """
-    Get the conditional probability of observing keystrokes_quan quantiles of 
-    keystrokes, given the task.
+    This function returns the prior of all the tasks in an array. It simply counts 
+    how many times the task is labeled and computes an expected value based on this. 
+    Obviously, this is done using only the labeled lines.
+    
+    All priors are based on the same principle.
+    """
+
+    prior_task_single_label = dtools.init_dic(keys = tasks)
+
+    for task in np.unique(tasks):
+        prior_task_single_label[task] = np.sum(tasks == task)
+    
+    prior_task_single_label = dtools.normalize(prior_task_single_label)
+
+    return prior_task_single_label
+
+
+def get_p_keyst_given_task(tasks, keystrokes_quan, n_tot_keyst, unique_tasks=TASKS):
+    """
+    This function returns the conditional probability of observing keystrokes_quan 
+    quantiles of keystrokes, given the task.
     
     Since we are trying to estimate the task, at this point it is still unkonwn 
     and therefore we compute the conditional probability for each possible value
     of task.
     """
 
-    p_keyst_given_task = dt.init_dic_matrix(unique_tasks, np.arange(n_tot_keyst))
+    p_keyst_given_task = dtools.init_dic_matrix(unique_tasks, np.arange(n_tot_keyst))
     for task in unique_tasks:
         for i in range(n_tot_keyst):
             p_keyst_given_task[task][i] = np.sum(
@@ -38,49 +53,49 @@ def get_p_keyst_given_task(tasks, keystrokes_quan, n_tot_keyst, unique_tasks):
                             keystrokes_quan == i, 
                             tasks == task)) 
             
-        p_keyst_given_task[task] = dt.normalize(p_keyst_given_task[task])
+        p_keyst_given_task[task] = dtools.normalize(p_keyst_given_task[task])
     
 
     return p_keyst_given_task
 
-def get_p_lclicks_given_task(tasks, lclicks, n_clicks, unique_tasks):
+def get_p_lclicks_given_task(tasks, lclicks, n_clicks, unique_tasks=TASKS):
     """
     Get the conditional probability of observing lclicks many left clicks,
     given the task.
     
-    For the same reason as above,  we compute the conditional probability for 
+    For the same reason as above, we compute the conditional probability for 
     each possible value of task.
     """    
 
-    p_lclicks_given_task = dt.init_dic_matrix(unique_tasks, np.arange(n_clicks))
+    p_lclicks_given_task = dtools.init_dic_matrix(unique_tasks, np.arange(n_clicks))
     for task in unique_tasks:
         for i in range(n_clicks):
             p_lclicks_given_task [task][i] = np.sum(
                     np.logical_and(
                             lclicks == i, 
                             tasks == task)) 
-        p_lclicks_given_task [task] = dt.normalize(p_lclicks_given_task [task])
+        p_lclicks_given_task [task] = dtools.normalize(p_lclicks_given_task [task])
     
 
     return p_lclicks_given_task 
 
-def get_p_rclicks_given_task(tasks, rclicks, n_clicks, unique_tasks):
+def get_p_rclicks_given_task(tasks, rclicks, n_clicks, unique_tasks=TASKS):
     """
     Get the conditional probability of observing rclicks many right clicks,
     given the task.
     
-    For the same reason as above,  we compute the conditional probability for 
+    For the same reason as above, we compute the conditional probability for 
     each possible value of task.
     """        
 
-    p_rclicks_given_task = dt.init_dic_matrix(unique_tasks, np.arange(n_clicks))
+    p_rclicks_given_task = dtools.init_dic_matrix(unique_tasks, np.arange(n_clicks))
     for task in unique_tasks:
         for i in range(n_clicks):
             p_rclicks_given_task [task][i] = np.sum(
                     np.logical_and(
                             rclicks == i, 
                             tasks == task)) 
-        p_rclicks_given_task [task] = dt.normalize(p_rclicks_given_task[task])
+        p_rclicks_given_task [task] = dtools.normalize(p_rclicks_given_task[task])
     
 
     return p_rclicks_given_task 
@@ -89,7 +104,7 @@ def get_p_rclicks_given_task(tasks, rclicks, n_clicks, unique_tasks):
 
 
 
-def get_p_exe_given_task(tasks, exes, exe_names, unique_tasks):
+def get_p_exe_given_task(tasks, exes, exe_names, unique_tasks=TASKS):
     """
     This is 1D case relating application (i.e. exe) names. Namely, in case exe 
     name and window title are judged to be independent, we treat each of them 
@@ -98,22 +113,23 @@ def get_p_exe_given_task(tasks, exes, exe_names, unique_tasks):
     Here, we get the conditional probability of observing the exe name, given 
     the task.
     
-    For the same reason as above,  we compute the conditional probability for 
+    For the same reason as above, we compute the conditional probability for 
     each possible value of task.
     """ 
-    p_exe_given_task = dt.init_dic_matrix(unique_tasks, exe_names)
+    p_exe_given_task = dtools.init_dic_matrix(unique_tasks, exe_names)
 
-    for task in unique_tasks:
-        for e in exe_names:
-            p_exe_given_task[task][e] = np.sum(
+    for e in exe_names:
+        for task in TASKS:
+            p_exe_given_task[e][task] = np.sum(
                     np.logical_and(
                             exes == e, 
                             tasks == task))
-        p_exe_given_task[task] = dt.normalize(p_exe_given_task[task])
+
+        p_exe_given_task[e] = dtools.normalize(p_exe_given_task[e])
     
     return p_exe_given_task 
 
-def get_p_window_given_task(tasks, windows, window_names, unique_tasks):
+def get_p_window_given_task(tasks, windows, window_names, unique_tasks=TASKS):
     """
     Similar to the above, 1D case relating window titles. This function is called 
     when exe name and window title are judged to be independent.
@@ -121,30 +137,31 @@ def get_p_window_given_task(tasks, windows, window_names, unique_tasks):
     Here, we get the conditional probability of observing the window title, given 
     the task.
     
-    For the same reason as above,  we compute the conditional probability for 
+    For the same reason as above, we compute the conditional probability for 
     each possible value of task.
     """ 
 
-    p_window_given_task = dt.init_dic_matrix(unique_tasks, window_names) # + class for unknown titles
-    # first unknown titles (i.e. alien titles)
-    for task in unique_tasks:
-        p_window_given_task[task][''] = np.sum(np.logical_and(
+    p_window_given_task = dtools.init_dic_matrix(unique_tasks, window_names) # + class for unknown titles
+    # first unknown titles (i.e. alien titles) and known tasks
+    for task in TASKS:
+        p_window_given_task[''][task] = np.sum(np.logical_and(
                 windows == '',
                 tasks == task))
-    p_window_given_task[task] = dt.normalize(p_window_given_task[task])
+    p_window_given_task[''] = dtools.normalize(p_window_given_task[''])
 
-    # then known titles
-    for task in unique_tasks:
-        for w in window_names:          
-            p_window_given_task[task][w] = np.sum(
-                    np.logical_and(
-                            windows == w, 
-                            tasks == task)) 
-        p_window_given_task[task] = dt.normalize(p_window_given_task[task])
+    # then known titles and known tasks
+    for w in window_names:
+        for task in TASKS:
+            temp_window = windows == w
+
+            temp_task = tasks == task
+            
+            p_window_given_task[w][task] = np.sum(np.logical_and(temp_window, temp_task)) 
+        p_window_given_task[w] = dtools.normalize(p_window_given_task[w])
 
     return p_window_given_task
 
-def get_p_exe_window_given_task(tasks, exes, exe_names, windows, window_names, unique_tasks):
+def get_p_exe_window_given_task(tasks, exes, exe_names, windows, window_names, unique_tasks=TASKS):
     """
     This replaces the twoabove functions, when exe name and window title are 
     judged to be dependent (i.e. the 2D case).
@@ -155,12 +172,12 @@ def get_p_exe_window_given_task(tasks, exes, exe_names, windows, window_names, u
     Here, we compute the conditional probability of observing the combination 
     of exe name and window title, given the task.
     
-    For the same reason as above,  we compute the conditional probability for 
+    For the same reason as above, we compute the conditional probability for 
     each possible value of task.
     """ 
     
     p_exe_window_given_task = dict()
-    for task in unique_tasks:
+    for task in TASKS:
         p_exe_window_given_task[task] = dict()
         for exe in exe_names:
             p_exe_window_given_task[task][exe] = dict()
@@ -174,18 +191,18 @@ def get_p_exe_window_given_task(tasks, exes, exe_names, windows, window_names, u
             
     return p_exe_window_given_task 
 
-def get_p_duration_given_task(tasks, duration, unique_tasks):
+def get_p_duration_given_task(tasks, duration, unique_tasks=TASKS):
     """
     This function is very similar the 1D case relating exe name or window title. 
     
     Here, we get the conditional probability of observing the duration value, given 
     the task.
     
-    For the same reason as above,  we compute the conditional probability for 
+    For the same reason as above, we compute the conditional probability for 
     each possible value of task.
     """
     n_bins = len(np.unique(duration))
-    p_duration_given_task = dt.init_dic_matrix(unique_tasks, np.arange(n_bins))
+    p_duration_given_task = dtools.init_dic_matrix(unique_tasks, np.arange(n_bins))
 
     for task in unique_tasks:
         for i in range(n_bins+1):
@@ -193,7 +210,7 @@ def get_p_duration_given_task(tasks, duration, unique_tasks):
                     np.logical_and(
                             duration == i, 
                             tasks == task)) 
-        p_duration_given_task[task] = dt.normalize(p_duration_given_task[task])
+        p_duration_given_task[task] = dtools.normalize(p_duration_given_task[task])
     
 
     return p_duration_given_task
@@ -202,7 +219,8 @@ def get_p_duration_given_task(tasks, duration, unique_tasks):
 Note that the three functions below essentially carry out the same operations:
     get_conditional_s1: is called at stage1
     get_conditional_s1: is called at stage-2
-    get_conditional: is called when no hierrachical framework is considered
+    get_conditional: is called when no hierrachical framework is considered or 
+    at s1/s2 with adjusted arguments
     
 There are only some minor differences between them, namely possible task outcomes
 (see the last arguments)
@@ -231,7 +249,7 @@ def get_conditional(tasks, exes, windows, keystrokes_quan, lunch, duration, \
     n_rclicks = len(np.unique(r_clicks))
     
     """
-    For each descipt get the conditional probability and enter it into the 
+    For each desciptor get the conditional probability and enter it into the 
     dictionary variable
     """
     p_keyst_given_task = get_p_keyst_given_task(tasks, keystrokes_quan, n_tot_keyst, unique_tasks)
@@ -247,7 +265,7 @@ def get_conditional(tasks, exes, windows, keystrokes_quan, lunch, duration, \
     """
     In the past I used to use the information whether hh:mm:ss is during lunch 
     break or not. but currently I do not use time of the day, but I only use the 
-    duration of the action. Therefore. The below is skipped.
+    duration of the action. Therefore, the below is skipped.
     """
     p_lunch_given_task = [] 
     #p_lunch_given_task = get_p_lunch_given_task(tasks, lunch, unique_tasks)

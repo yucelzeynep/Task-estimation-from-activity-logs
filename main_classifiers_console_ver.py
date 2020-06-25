@@ -9,7 +9,7 @@ This file is more handy (as compared to main_classifiers), if you prefer testing
 and contrasting different choices of hyper-parameters on the console.
 
 You may at once modify the param.py file and test it (instead of switching between 
-files, i.e. first changing the variable values in param.py and then rerunnig 
+files, i.e. first changing the variable values in param.py and then rerunning 
 main_classifiers.py)
 
 When calling this script on console, you need 2 arguments, (i) the stage number 
@@ -22,7 +22,7 @@ import params
 
 def setup_params(stage, file):
     """
-    Update param values
+    Update/overwrite param values
     """
     f = open('params.py','r')
     new_lines = []
@@ -48,5 +48,6 @@ if __name__ == "__main__":
         person = 'DEV' if params.ANNOTATION_FILE == params.FILE_DEV else 'LEADER'
         
         f.write('{} - Stage {}\n'.format(person, params.STAGE))
-        f.write('Non hierarchical, Relevant desc({}), Train size({})\n'.format(params.USE_REL_DESC, params.TRAINSET_SIZE))
+        f.write('Non hierarchical, Relevant desc({}), Train size({})\n'.format(params.USE_REL_DESC, \
+                params.TRAINSET_SIZE))
         f.close()

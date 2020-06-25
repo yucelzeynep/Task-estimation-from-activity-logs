@@ -22,7 +22,7 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn import preprocessing
 from sklearn.metrics import confusion_matrix, classification_report
 from sklearn.utils.multiclass import unique_labels
-from imblearn.over_sampling import SMOTE
+#from imblearn.over_sampling import SMOTE
 from collections import Counter
 
 le = preprocessing.LabelEncoder()

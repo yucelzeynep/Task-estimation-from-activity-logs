@@ -22,6 +22,11 @@ def scanfMat(filename):
     f.close()
     return np.asarray(mat, dtype=int)
 
+def joinTitles(titles):
+    """
+    Join title strings
+    """
+    return '/'.join(titles[:len(titles)-np.sum(titles=='')])
 
 def readData(fname): 
     """
