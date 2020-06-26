@@ -5,7 +5,7 @@ Created on Tue May 21 08:50:23 2019
 
 @author: zeynep
 
-This function computes the reltive entropy distance between each pair of 
+This function computes the normalized entropy distance between each pair of 
 descriptors. The decision on being whether depedent or not is made in an 
 empirical manner.
 
