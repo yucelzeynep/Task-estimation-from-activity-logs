@@ -5,7 +5,7 @@ This repository contains the resources necessary for reproducing the results rep
 
 The activity logs and task annotations are provided together. Namely, the columns in data/annotation_*.csv involve both the descriptors and the assigned tasks as organized as follows
 
-| Column number | Header | Contents | 
+| Column no. | Header | Contents | 
 | :---      |  :------  |:------  |
 |  1   | タスク名   | Task name   |
 |  2   | 開始時刻   | Start time   |
@@ -14,10 +14,10 @@ The activity logs and task annotations are provided together. Namely, the column
 |  5   | 右クリック   | Right clicks   |
 |  6   | 打鍵回数   | Key strokes   |
 |  7   | 実行ファイル名   | Application   |
-|  9   | 候補1   | Candidate-1   |
-|  10   | 候補2   | Candidate-2   |
-|  11   | 候補3   | Candidate-3   |
-|  11   | 自動推定 | cell 3   |
+|  9   | 候補1   | Task annotation (candidate-1)   |
+|  10   | 候補2   |  Task annotation (candidate-2)   |
+|  11   | 候補3   |  Task annotation (candidate-3)   |
+|  11   | 自動推定 | Automatic estimation by association rules   |
 
 
 
