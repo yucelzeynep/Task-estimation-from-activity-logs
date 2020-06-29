@@ -17,7 +17,9 @@ The activity logs and task annotations are provided together. Namely, the column
 |  9   | 候補1   | Task annotation (candidate-1)   |
 |  10   | 候補2   |  Task annotation (candidate-2)   |
 |  11   | 候補3   |  Task annotation (candidate-3)   |
-|  11   | 自動推定 | Automatic estimation by association rules   |
+|  12   | 自動推定 | Automatic estimation by association rules   |
+
+In this respect, columns 2-7 contain the descriptors, whereas columns 9-11 contain the annotations. On the other hand, column 12 contains the outcomes of an implementation of the benchmark method (based on association rules) in Visual Basic. However, in this project, we prefer using a devoted routine for this, so as to be able to carry out a detailed analysis on a common platform and provide comparisons to the proposed method. 
 
 
 
