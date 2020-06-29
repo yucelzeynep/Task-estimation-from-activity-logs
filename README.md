@@ -7,7 +7,7 @@ The activity logs and task annotations are provided together. Namely, the column
 
 | Column no. | Header | Contents | 
 | :---      |  :------  |:------  |
-|  1   | タスク名   | Task name   |
+|  1   | -  | -   |
 |  2   | 開始時刻   | Start time   |
 |  3   | 終了時刻   | End time  |
 |  4   | 左クリック   | Left clicks   |
