@@ -16,7 +16,6 @@ import numpy as np
 import time
 
 import tools_dic as dtools
-
 import tools_file as ftools
 import tools_rule as rtools
 import tools_presentation as ptools
