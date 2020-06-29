@@ -3,37 +3,25 @@ This repository contains the resources necessary for reproducing the results rep
 
 **Data and annotations**
 
-The activity logs and task annotations are provided together. Namely, the columns in data/annotation_*.txt involve the following
+The activity logs and task annotations are provided together. Namely, the columns in data/annotation_*.csv involve both the descriptors and the assigned tasks as organized as follows
 
-| header 1 | header 2 | header 3 |
-| ---      |  ------  |---------:|
-| cell 1   | cell 2   | cell 3   |
-| cell 4 | cell 5 is longer | cell 6 is much longer than the others, but that's ok. It will eventually wrap the text when the cell is too large for the display size. |
-| cell 7   |          | cell <br> 9 |
+| Column number | Header | Contents | 
+| :---      |  :------  |:------  |
+|  1   | タスク名   | Task name   |
+|  2   | 開始時刻   | Start time   |
+|  3   | 終了時刻   | End time  |
+|  4   | 左クリック   | Left clicks   |
+|  5   | 右クリック   | Right clicks   |
+|  6   | 打鍵回数   | Key strokes   |
+|  7   | 実行ファイル名   | Application   |
+|  9   | 候補1   | Candidate-1   |
+|  10   | 候補2   | Candidate-2   |
+|  11   | 候補3   | Candidate-3   |
+|  11   | 自動推定 | cell 3   |
 
-Task name タスク名;
 
-開始時刻;
 
-終了時刻;
 
-左クリック;
-
-右クリック;
-
-打鍵回数;
-
-実行ファイル名;
-
-手動分類;
-
-候補1;
-
-候補2;
-
-候補3;
-
-自動推定
 
 
 **Main routines**
