@@ -8,9 +8,10 @@ The three main approaches discussed in the article can be tested by running the 
 (ii) main_bayesian_blended.py implements the proposed Bayesian estimation scheme 
 (iii) main_classifers.py provides estimation with standard classifiers. 
 
-# This is an <h1> tag
-## This is an <h2> tag
-###### This is an  tag
+
+###### Benchmark method
+###### Proposed Bayesian estimation method
+###### Estimation with standard classifiers
 
 
 **Tools**
