@@ -10,7 +10,7 @@ The three main approaches discussed in the article can be tested by running the 
 
 # This is an <h1> tag
 ## This is an <h2> tag
-###### This is an <h6> tag
+###### This is an  tag
 
 
 **Tools**
