@@ -5,3 +5,9 @@ The repository is organized such that the three main approaches discussed in the
 (i) main_benchmark.py implements the benchmark method based on association rules.
 (ii) main_bayesian_blended.py implements the proposed Bayesian estimation scheme 
 (iii) main_classifers.py provides estimation with standard classifiers. 
+
+In addition, any functions necessary for the above implementations are provided as tools (as tools_*.py files).
+
+Moreover, the routines, which need not to be called online, but rather relate the selection of hyper-parameters, are provided as auxiliary scripts (as aux_*.py files).
+
+
