@@ -23,6 +23,23 @@ If the line is not coded by annotator with a task, it omits that line.
 For the explanation of exe names and window titles, 
 see codes_exe.txt, codes_title.txt.
 
+For refence, level of association is judged as follows
+
+ LEVEL OF ASSOCIATION 	Verbal Description 	COMMENTS
+ 0.00                 	No Relationship    	Knowing the indepent variable does not help in predicting the depent variable.
+.00 to .15            	Very Weak          	Not generally acceptable
+.15 to .20            	Weak              	Minimally acceptable
+.20 to .25            	Moderate           	Acceptable
+.25 to .30            	Moderately Strong  	Desirable
+.30 to .35            	Strong             	Very Desirable
+.35 to .40            	Very Strong        	Extremely Desirable
+.40 to .50            	Worrisomely Strong 	Either an extremely good relationship or the two variables are measuring the same concept
+.50 to .99            	Redundant          	The two variables are probably measuring the same concept.
+1.00                  	Perfect Relationship.  	If we the know the indepent variable, we can perfectly predict the depent variable.  
+
+from http:#groups.chass.utoronto.ca/pol242/Labs/LM-3A/LM-3A_content.htm
+
+
 Zeynep Yucel
 2017 12 19
 
@@ -104,23 +121,17 @@ if __name__ == "__main__":
     print('---------------------------------------------------------------')
     for i in range(len(cV)):
         if 0.15< cV[i] and cV[i] < 0.20 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[0] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[0] ))
         elif 0.2< cV[i] and cV[i] < 0.25 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[1] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[1] ))
         elif 0.25< cV[i] and cV[i] < 0.30 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[2] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[2] ))
         elif 0.30< cV[i] and cV[i] < 0.35 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[3] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[3] ))
         elif 0.35< cV[i] and cV[i] < 0.40 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[4] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[4] ))
         elif 0.40< cV[i] and cV[i] < 0.50 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[5] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[5] ))
         
     
     
@@ -165,23 +176,17 @@ if __name__ == "__main__":
     print('--------------------------------------------')
     for i in range(len(cV)):
         if 0.15< cV[i] and cV[i] < 0.20 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[0] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_title[i],cV[i],level_of_assoc[0] ))
         elif 0.2< cV[i] and cV[i] < 0.25 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[1] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_title[i],cV[i],level_of_assoc[1] ))
         elif 0.25< cV[i] and cV[i] < 0.30 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[2] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_title[i],cV[i],level_of_assoc[2] ))
         elif 0.30< cV[i] and cV[i] < 0.35 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[3] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_title[i],cV[i],level_of_assoc[3] ))
         elif 0.35< cV[i] and cV[i] < 0.40 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[4] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_title[i],cV[i],level_of_assoc[4] ))
         elif 0.40< cV[i] and cV[i] < 0.50 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[5] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[5] ))
     
     ########################################
     #
@@ -221,20 +226,14 @@ if __name__ == "__main__":
     print('--------------------------------------------')
     for i in range(len(cV)):
         if 0.15< cV[i] and cV[i] < 0.20 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[0] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[0] ))
         elif 0.2< cV[i] and cV[i] < 0.25 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[1] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[1] ))
         elif 0.25< cV[i] and cV[i] < 0.30 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[2] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[2] ))
         elif 0.30< cV[i] and cV[i] < 0.35 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[3] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[3] ))
         elif 0.35< cV[i] and cV[i] < 0.40 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[4] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[4] ))
         elif 0.40< cV[i] and cV[i] < 0.50 :
-            print('{0} \t {1} \t {2} \t {3:.3f}\t {4}'.format(\
-                  i+1,count_exe[i],cV[i],level_of_assoc[5] ))
+            print('{0} \t {1} \t {2:.3f}\t {3:s}'.format( i+1,count_exe[i],cV[i],level_of_assoc[5] ))
