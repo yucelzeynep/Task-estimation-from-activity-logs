@@ -13,7 +13,7 @@ The three main approaches discussed in the article can be tested by running the 
 
 The main_benchmark.py routine applies the association rules on the actions for  estimating the tasks. The list of -definitions- of association rules and the functions which apply those rules on the actions can be found in tools_rule.py. 
 
-For a more detailed analysis together with a comparison with the proposed method, is implemented in main_proposed.py.
+For a more detailed analysis together with a comparison with the proposed method, see main_proposed.py.
 
 ###### Proposed Bayesian estimation method
 The main_benchmark.py routine implements the proposed Bayesian scheme. Several variation of it, for instance non-/hierarchical, as well as assuming different relevance characteristics or in/dependence relations between descriptors, can be realized by setting the relating hyper-parameters in params.py file. 
