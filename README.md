@@ -30,7 +30,7 @@ In this respect, columns 2-7 contain the descriptors, whereas columns 9-11 conta
 
 The three main approaches discussed in the article can be tested by running the  'main' routines. In particular, 
 1. main_benchmark.py implements the benchmark method based on association rules.
-2. main_bayesian_blended.py implements the proposed Bayesian estimation scheme 
+2. main_bayesian_blended.py implements the proposed Bayesian estimation scheme.
 3. main_classifers.py provides estimation with standard classifiers. 
 
 
