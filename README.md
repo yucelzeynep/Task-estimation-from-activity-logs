@@ -5,14 +5,21 @@ This repository contains the resources necessary for reproducing the results rep
 
 The activity logs and task annotations are provided together. Namely, the columns in data/annotation_*.txt involve the following
 
->タスク名;
->開始時刻;
->終了時刻;
->左クリック;
->右クリック;
->打鍵回数;
->実行ファイル名;
->手動分類;
+タスク名;
+
+開始時刻;
+
+終了時刻;
+
+左クリック;
+
+右クリック;
+
+打鍵回数;
+
+実行ファイル名;
+
+手動分類;
 >候補1;
 >候補2;
 >候補3;
