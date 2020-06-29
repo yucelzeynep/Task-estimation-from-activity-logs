@@ -53,7 +53,7 @@ This routine applies K-Nearest Neighbor, Random Forest and Support Vector classi
 
 **Tools**
 
-Any functions necessary for the implementation of the main routines are provided as tools (i.e. as tools_*.py files).
+Any functions necessary for the implementation of the main routines are provided as tools (i.e. as tools_*.py files). In addition to the tools explained above, we implemented several sets of functions such as the ones for managing dictionary variables (tools_dic), for managing file operations (tools_file), and for illustration of results as tables or figures (tools_presentation).
 
 
 **Auxiliary routines**
