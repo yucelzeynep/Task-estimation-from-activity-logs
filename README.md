@@ -19,7 +19,7 @@ The activity logs and task annotations are provided together. Namely, the column
 |  11   | 候補3   |  Task annotation (candidate-3)   |
 |  12   | 自動推定 | Automatic estimation by association rules   |
 
-In this respect, columns 2-7 contain the descriptors, whereas columns 9-11 contain the annotations. On the other hand, column 12 contains the outcomes of an implementation of the benchmark method (based on association rules) in Visual Basic. However, in this project, we prefer using a devoted routine for this, so as to be able to carry out a detailed analysis on a common platform and provide comparisons to the proposed method. 
+In this respect, columns 2-7 contain the descriptors, whereas columns 9-11 contain the annotations. On the other hand, column 12 contains the outcomes of an implementation of the benchmark method (based on association rules) in Visual Basic [1]. However, in this project, we prefer using a devoted routine for this (see below for the explanation of main_benchmark.py), so as to be able to carry out a detailed analysis on a common platform and provide comparisons to the proposed method. 
 
 
 
@@ -57,4 +57,8 @@ Any functions necessary for the implementation of the main routines are provided
 
 Moreover, the routines, which are not called online, but rather relate the selection of hyper-parameters etc., are provided as auxiliary scripts (as aux_*.py files). Specifically, there are two auxiliaries as (i) 
 
+
+**References**
+
+[1] Shimizu, R., Monden, A., Yücel, Z., and Uwano, H. (2018). Automatic estimation of software development tasks. In Winter Workshop 2018, pages 30–31.
 
