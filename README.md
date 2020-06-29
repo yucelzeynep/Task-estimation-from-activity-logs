@@ -1,7 +1,5 @@
 # Task estimation from activity logs
-The data and codes necessary to reproduce the results reported in our manuscript
-
-The repository is organized as a collection data, main routines, tools, auxiliaries.
+This repository involves the resources necessary to reproduce the results reported in our manuscript. Specifically, it is organized as a collection data, main routines, tools, auxiliaries.
 
 **Main routines**
 
