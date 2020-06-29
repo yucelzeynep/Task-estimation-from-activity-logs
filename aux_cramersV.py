@@ -104,9 +104,9 @@ if __name__ == "__main__":
 
         cV.append(v_task_vs_exe)
     
-    
-    cV_exe = cV
-    ftools.save('cV_exe_1by1', [cV_exe], ['cV_exe'])
+    ## If desired, uncomment the below
+#    cV_exe = cV
+#    ftools.save('cV_exe_1by1', [cV_exe], ['cV_exe'])
     
     print('\n**********************************************')
     print('List of exe which present statistically significant correlation with task:\n')
@@ -154,9 +154,9 @@ if __name__ == "__main__":
     
         cV.append(v_task_vs_title)
     
-    
-    cV_title = cV
-    ftools.save('cV_title_1by1', [cV_title], ['cV_title'])
+        ## If desired, uncomment the below
+#    cV_title = cV
+#    ftools.save('cV_title_1by1', [cV_title], ['cV_title'])
     
     print('\n**********************************************')
     print('List of titles which present statistically significant correlation with task:\n')

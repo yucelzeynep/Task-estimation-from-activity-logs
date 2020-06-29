@@ -107,9 +107,10 @@ if __name__ == "__main__":
     print('Top-10 window titles consitute {0:.3f} of the entire applications'.format(top10))
     
 
-    """
-    The below file will be used in computng Cramer's V
-    """
-    ftools.save('count_exe_title_task',
-             [list(count_task_principal.values()), list(count_exe.values()), list(count_title.values())],
-             ['count_task_principal', 'count_exe', 'count_title'])
+#    """
+#    The below file will be used in computing Cramer's V
+#    Uncomment, if desired
+#    """
+#    ftools.save('count_exe_title_task',
+#             [list(count_task_principal.values()), list(count_exe.values()), list(count_title.values())],
+#             ['count_task_principal', 'count_exe', 'count_title'])
