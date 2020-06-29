@@ -124,7 +124,7 @@ def apply_rules_to_action(exe, window, keyst, lunch, exe_only_rules, \
 
 def analyze_rule_based_estimations(tasks, est):
     """
-    This function gets a set of estimations and return some stats like
+    This function gets a set of estimations and returns some stats like
     how many estimations are made, number of cases with no-estimation, 
     1-estimation, 2-estimation, 3-estimation ...  for each action (ie line)
     
