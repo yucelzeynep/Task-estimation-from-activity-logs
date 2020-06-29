@@ -22,10 +22,6 @@ The activity logs and task annotations are provided together. Namely, the column
 In this respect, columns 2-7 contain the descriptors, whereas columns 9-11 contain the annotations. On the other hand, column 12 contains the outcomes of an implementation of the benchmark method (based on association rules) in Visual Basic [1]. However, in this project, we prefer using a devoted routine for this (see below for the explanation of main_benchmark.py), so as to be able to carry out a detailed analysis on a common platform and provide comparisons to the proposed method. 
 
 
-
-
-
-
 **Main routines**
 
 The three main approaches discussed in the article can be tested by running the below 'main' routines. In particular, 
@@ -43,7 +39,7 @@ For a more detailed analysis together with a comparison with the proposed method
 ###### Proposed Bayesian estimation method
 The main_proposed.py routine implements the Bayesian scheme. Several variations of it, for instance non-/hierarchical, as well as assuming different relevance characteristics or in/dependence relations between descriptors, can be realized by setting the relating hyper-parameters in params.py file. 
 
-Moreover, this routine does not only the Bayesian approach but also the benchmark method and provides comparison. 
+Moreover, this routine does not only the Bayesian approach but also the benchmark method and provides detailed comparison. 
 
 ###### Estimation with standard classifiers
 
@@ -60,12 +56,7 @@ The first one is implemented in aux_cramersV.py, whereas the second one is reali
 
 **Tools**
 
-Any functions necessary for the implementation of the main routines are provided as tools (i.e. as tools_*.py files). In addition to the tools explained above, we implemented several sets of functions such as the ones for managing dictionary variables (tools_dic), for managing file operations (tools_file), and for illustration of results as tables or figures (tools_presentation).
+Any functions necessary for the implementation of the main or auxiliary routines are provided as tools (i.e. as tools_*.py files). In addition to the tools explained above, we implemented several sets of functions such as the ones for managing dictionary variables (tools_dic.py), for managing file operations (tools_file.py), and for illustration of results as tables or figures (tools_presentation.py).
 
 
-
-
-**References**
-
-[1] Shimizu, R., Monden, A., Yücel, Z., and Uwano, H. (2018). Automatic estimation of software development tasks. In Winter Workshop 2018, pages 30–31.
 
