@@ -56,7 +56,7 @@ Moreover, the routines, which are not called online, but rather relate the selec
 1. Judging relevance of descriptors for the given tasks 
 2. Assessing in/dependence of descriptor pairs
 
-The first one is implemented in aux_cramersV.py, whereas the second one is realized by aux_entropy.py.
+The first one is implemented in aux_cramersV.py, whereas the second one is realized by aux_entropy.py. Moreover, tools_cramersV.py contain the functions which tabulate V in a straightforward as well as bias-corrected manner. In addition, tools_entropy.py involve functions for computing joint entropy and mutual information. 
 
 **Tools**
 
