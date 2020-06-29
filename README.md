@@ -50,6 +50,7 @@ Moreover, this routine does not only the Bayesian approach but also the benchmar
 This routine applies K-Nearest Neighbor, Random Forest and Support Vector classification. The functions which separate training and test data, do cross-validation and tabulate classification outcomes can be found in tools_classifier.py. 
 
 
+
 **Tools**
 
 Any functions necessary for the implementation of the main routines are provided as tools (i.e. as tools_*.py files).
