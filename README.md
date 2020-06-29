@@ -1,5 +1,7 @@
 # Task estimation from activity logs
-This repository contains the resources necessary for reproducing the results reported in our manuscript. Specifically, it is organized as collection data, main routines, tools, auxiliaries.
+This repository contains the resources necessary for reproducing the results reported in our manuscript. The implementation is done in Python 3.5.2 with no specific dependencies.
+
+Specifically, it is organized as collection data, main routines, auxiliaries and tools.
 
 **Data and annotations**
 
