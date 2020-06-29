@@ -1,6 +1,24 @@
 # Task estimation from activity logs
 This repository contains the resources necessary for reproducing the results reported in our manuscript. Specifically, it is organized as collection data, main routines, tools, auxiliaries.
 
+**Data and annotations**
+
+The activity logs and task annotations are provided together. Namely, the columns in data/annotation_*.txt involve the following
+
+>タスク名;
+>開始時刻;
+>終了時刻;
+>左クリック;
+>右クリック;
+>打鍵回数;
+>実行ファイル名;
+>手動分類;
+>候補1;
+>候補2;
+>候補3;
+>自動推定
+
+
 **Main routines**
 
 The three main approaches discussed in the article can be tested by running the  'main' routines. In particular, 
@@ -30,6 +48,6 @@ Any functions necessary for the implementation of the main routines are provided
 
 **Auxiliary routines**
 
-Moreover, the routines, which are not called online, but rather relate the selection of hyper-parameters etc., are provided as auxiliary scripts (as aux_*.py files).
+Moreover, the routines, which are not called online, but rather relate the selection of hyper-parameters etc., are provided as auxiliary scripts (as aux_*.py files). Specifically, there are two auxiliaries as (i) 
 
 

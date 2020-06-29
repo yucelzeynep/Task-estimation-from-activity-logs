@@ -1,0 +1,10 @@
+I use the following codes for the tasks
+1: program
+2: test
+3: management
+4: leisure (includes leisure, browser, messenger)
+
+debug is not a category because program and test involves debug too.
+
+
+
