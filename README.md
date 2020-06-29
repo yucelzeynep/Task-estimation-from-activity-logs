@@ -50,15 +50,19 @@ Moreover, this routine does not only the Bayesian approach but also the benchmar
 This routine applies K-Nearest Neighbor, Random Forest and Support Vector classification. The functions which separate training and test data, do cross-validation and tabulate classification outcomes can be found in tools_classifier.py. 
 
 
+**Auxiliary routines**
+
+Moreover, the routines, which are not called online, but rather relate the selection of hyper-parameters etc., are provided as auxiliary scripts (as aux_*.py files). Specifically, there are two auxiliaries for 
+1. Judging relevance of descriptors for the given tasks 
+2. Assessing in/dependence of descriptor pairs
+
+The first one is implemented in aux_cramersV.py, whereas the second one is realized by aux_entropy.py.
 
 **Tools**
 
 Any functions necessary for the implementation of the main routines are provided as tools (i.e. as tools_*.py files). In addition to the tools explained above, we implemented several sets of functions such as the ones for managing dictionary variables (tools_dic), for managing file operations (tools_file), and for illustration of results as tables or figures (tools_presentation).
 
 
-**Auxiliary routines**
-
-Moreover, the routines, which are not called online, but rather relate the selection of hyper-parameters etc., are provided as auxiliary scripts (as aux_*.py files). Specifically, there are two auxiliaries as (i) 
 
 
 **References**
