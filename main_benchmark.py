@@ -6,7 +6,7 @@ Created on Thu Jun  6 13:44:02 2019
 @author: florianpgn
 
 This function applies the association rules on the actions and estimates tasks. For
-a detailed analysis and comparison with the proposed method, check main_bayes, 
+a detailed analysis and comparison with the proposed method, check main_proposed, 
 which implements not only the Bayesian approach but also the benchmark method 
 and provides comparison. 
 """

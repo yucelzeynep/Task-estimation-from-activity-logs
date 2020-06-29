@@ -10,6 +10,9 @@ The three main approaches discussed in the article can be tested by running the 
 
 
 ###### Benchmark method
+
+The main_benchmark.py routine applies the association rules on the actions and estimates tasks. For a detailed analysis and comparison with the proposed method, check main_proposed, which implements not only the Bayesian approach but also the benchmark method and provides comparison. 
+
 ###### Proposed Bayesian estimation method
 ###### Estimation with standard classifiers
 
