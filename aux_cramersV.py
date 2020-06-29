@@ -69,7 +69,13 @@ if __name__ == "__main__":
     task_code_mat = ftools.load(params.PATH_TASK + params.DAT_FILE_PREFIX + params.TASK_MAT)
     time_code_mat = ftools.load(params.PATH_LUNCH + params.DAT_FILE_PREFIX + params.LUNCH_MAT)
     
+    """
+    Note that currently there is no file 'count_exe_title_task' under the master 
+    branch
     
+    Please run this file after reproducing the below file by commenting out the
+    last part in metadata.py
+    """
     (count_exe, count_task_principal, count_title) = ftools.load('count_exe_title_task')
     ###########################################################################
     
