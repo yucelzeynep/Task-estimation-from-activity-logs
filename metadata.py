@@ -5,8 +5,8 @@ Created on Mon Jun  3 10:44:06 2019
 
 @author: zeynep
 
-This function builds up th metadata reported in the section on 'Empirical 
-distribution of descriptors' and in part of the appendices. 
+This function builds up the metadata reported in the section on 'Empirical 
+distribution of descriptors' and also some part of the appendices. 
  
 Specifically, we study the ground truth task distribution, and distribution of 
 nominal descriptors in  the annotated subset and the entire data set. 
