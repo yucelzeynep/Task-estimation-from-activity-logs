@@ -10,4 +10,11 @@ In addition, any functions necessary for the above implementations are provided 
 
 Moreover, the routines, which need not to be called online, but rather relate the selection of hyper-parameters, are provided as auxiliary scripts (as aux_*.py files).
 
+**Main routines**
+
+**Tools**
+
+**Auxiliary routines**
+
+
 
