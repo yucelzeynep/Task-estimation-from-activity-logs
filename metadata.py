@@ -20,13 +20,12 @@ reload(params)
 
 from prettytable import PrettyTable
 
-from data_formatting import descriptor_extractor
 import tools_file as ftools
 import tools_dic as dtools
 
 if __name__ == "__main__":      
 
-    (exe_names, window_names, time_names, level_of_assoc) = descriptor_extractor.define_names()
+    (exe_names, window_names, time_names, level_of_assoc) = dtools.define_names()
     
     exe_code_mat = ftools.load(params.PATH_EXE + params.DAT_FILE_PREFIX + params.EXE_MAT)
     title_code_mat = ftools.load(params.PATH_TITLE + params.DAT_FILE_PREFIX + params.TITLE_MAT)
@@ -41,7 +40,7 @@ if __name__ == "__main__":
     
     
     """
-    Distibution of principal tasks
+    Distribution of principal tasks
     """
     count_task = dtools.init_dic()
     percent_task = dtools.init_dic()
@@ -54,7 +53,7 @@ if __name__ == "__main__":
     task_table = PrettyTable()
     task_table.field_names = ['Code', 'Name', 'Count', 'Ratio']
     print('******************************')
-    print('Distibution of principal tasks')
+    print('Distribution of principal tasks')
     for i, task in enumerate(params.TASKS, 1):
         task_table.add_row([i, task, count_task[task], round(percent_task[task],3)])
     print(task_table)
@@ -72,7 +71,7 @@ if __name__ == "__main__":
     prior_exe = np.divide(count_exe, np.sum(count_exe))
     
     print('\n******************************')
-    print('Distibution of exe (only top-5)')
+    print('Distribution of exe (only top-5)')
     exe_table = PrettyTable()
     exe_table.field_names = ['Code', 'Name', 'Count', 'Ratio']
     for i in range(5): #size(exe_names,1)
@@ -100,7 +99,7 @@ if __name__ == "__main__":
     prior_title = np.divide(count_title, np.sum(count_title))
     
     print('\n******************************')
-    print('Distibution of window title (principal)')
+    print('Distribution of window title (principal)')
     title_table = PrettyTable()
     title_table.field_names = ['Code', 'Name', 'Count', 'Ratio']
     for i in range(10): #size(title_names,1)
@@ -109,3 +108,7 @@ if __name__ == "__main__":
     
     top10 = np.sum(prior_title[b[:10]])
     print('Top-10 window titles consitute {0:.3f} of the entire applications'.format(top10))
+#
+#    ftools.save('count_exe_title_task',
+#             [list(count_task_principal.values()), list(count_exe.values()), list(count_title.values())],
+#             ['count_task_principal', 'count_exe', 'count_title'])

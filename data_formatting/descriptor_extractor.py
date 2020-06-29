@@ -14,8 +14,8 @@ import numpy as np
 
 
 import re
-import data_quartiles
-import data_post_processing as post_pro
+from data_formatting import data_quartiles
+from data_formatting import data_post_processing as post_pro
 
 from importlib import reload
 import params

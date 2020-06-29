@@ -15,10 +15,11 @@ import sys
 import random
 import matplotlib.pyplot as plt
 
-import params
-from importlib import reload
-reload(params)
-
+# This was originally in params but I moved it out, after structirng the folders
+# Set it locally
+# In computing quartiles, you may choose to remove or not the offset
+# Does not have much significance
+REMOVE_OFFSET = False
 
 def get_quartiles(data, nb_bins, dispay_graph = True):
     data = np.array(data)
@@ -40,7 +41,7 @@ def get_quartiles(data, nb_bins, dispay_graph = True):
     intercepts
     """
     offset_value = 0
-    if params.REMOVE_OFFSET:
+    if REMOVE_OFFSET:
         offset_value = cdf[0]
         cdf = cdf - cdf[0]
     
