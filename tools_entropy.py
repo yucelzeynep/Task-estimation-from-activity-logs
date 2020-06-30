@@ -35,7 +35,7 @@ def compute_joint_histogram(data1, data2):
 
 def compute_histogram(data):
     """
-    Returns 1d histogram
+    Returns 1D histogram
     """
     (min_bound, max_bound, bin_size) = getDataHistParams(data)
     n_bins = int(round((max_bound - min_bound) / bin_size) + 1)
