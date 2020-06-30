@@ -7,19 +7,19 @@ Specifically, it is organized as collection data, main routines, auxiliaries and
 
 The activity logs and task annotations are provided together. Namely, the columns in data/annotation_*.csv involve both the descriptors and the assigned tasks as organized as follows
 
-| Column no. | Header | Contents | 
-| :---      |  :------  |:------  |
-|  1   | -  | -   |
-|  2   | 開始時刻   | Start time   |
-|  3   | 終了時刻   | End time  |
-|  4   | 左クリック   | Left clicks   |
-|  5   | 右クリック   | Right clicks   |
-|  6   | 打鍵回数   | Key strokes   |
-|  7   | 実行ファイル名   | Application   |
-|  9   | 候補1   | Task annotation (candidate-1)   |
-|  10   | 候補2   |  Task annotation (candidate-2)   |
-|  11   | 候補3   |  Task annotation (candidate-3)   |
-|  12   | 自動推定 | Automatic estimation by association rules   |
+| Column no. Contents | 
+| :---       |:------  |
+|  1   | -   |
+|  2   |  Start time   |
+|  3   |  End time  |
+|  4   | Left clicks   |
+|  5   |  Right clicks   |
+|  6   | Key strokes   |
+|  7   |  Application   |
+|  9   |  Task annotation (candidate-1)   |
+|  10   |   Task annotation (candidate-2)   |
+|  11   |   Task annotation (candidate-3)   |
+|  12   |  Automatic estimation by association rules   |
 
 In this respect, columns 2-7 contain the descriptors, whereas columns 9-11 contain the annotations. On the other hand, column 12 contains the outcomes of an implementation of the benchmark method (based on association rules) in Visual Basic [1]. However, in this project, we prefer using a devoted routine for this (see below for the explanation of main_benchmark.py), so as to be able to carry out a detailed analysis on a common platform and provide comparisons to the proposed method. 
 
