@@ -4,6 +4,13 @@
 Created on Thu Aug  8 14:49:00 2019
 
 @author: florianpgn
+
+This file contains the main routine for applyng the standard classifiers. Please
+check params to configure about the hierarchy, training/test size and whether 
+to use all descriptors or the ones with a high V. 
+
+For investigating on Cramer's V, please see the auxiliary routine. 
+
 """
 import numpy as np
 

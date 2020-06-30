@@ -9,6 +9,7 @@ This function applies the association rules on the actions and estimates tasks. 
 a detailed analysis and comparison with the proposed method, check main_proposed, 
 which implements not only the Bayesian approach but also the benchmark method 
 and provides comparison. 
+
 """
  
 import numpy as np
