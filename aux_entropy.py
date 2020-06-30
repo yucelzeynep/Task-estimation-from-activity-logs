@@ -12,6 +12,7 @@ empirical manner.
 Since this decision can be carried out prior to the estimation and the relating 
 settings in the parameters file can be adjusted accordingly, we realize it in
 an offline manner.
+
 """
 import numpy as np
 
