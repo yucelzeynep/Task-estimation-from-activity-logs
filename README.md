@@ -7,7 +7,7 @@ Specifically, it is organized as collection data, main routines, auxiliaries and
 
 The activity logs and task annotations are provided together. Namely, the columns in data/annotation_*.csv involve both the descriptors and the assigned tasks as organized as follows
 
-| Column no. Contents | 
+| Column no. |Contents | 
 | :---       |:------  |
 |  1   | -   |
 |  2   |  Start time   |
