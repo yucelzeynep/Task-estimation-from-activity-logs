@@ -6,6 +6,7 @@ Created on Tue May 21 08:50:23 2019
 
 This file contains some functions necessary for carrying out file operations. 
 Mainly, for reading dta in correct format, decoding, and saving.
+
 """
 import numpy as np
 

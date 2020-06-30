@@ -10,6 +10,7 @@ distance so as to judge in/dependence.
 
 Computing mutual information and joint entropy are the essential steps and there
 are also some other trivial functions to for computing the 1D/2D histograms etc. 
+
 """
 import numpy as np
 

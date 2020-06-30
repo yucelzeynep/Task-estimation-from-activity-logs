@@ -10,6 +10,7 @@ easy to understand manner. It also saves data points that we import into gnuplot
 for better quality figures.
 
 In addition, it helps to produce some of the examples in the appendices.
+
 """
 import numpy as np
 
