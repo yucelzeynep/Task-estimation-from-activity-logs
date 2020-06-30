@@ -6,7 +6,7 @@ Created on Mon Jul  1 16:42:50 2019
 @author: florianpgn
 
 This file involves functions which (i) initialize instances of varying sorts of 
-dictionary variables and (ii) which carry out trivial operations on those
+dictionary variables and (ii) which carry out trivial operations on those.
 """
 import numpy as np
 

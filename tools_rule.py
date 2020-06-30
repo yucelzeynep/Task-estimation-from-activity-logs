@@ -4,6 +4,11 @@
 Created on Thu Jun  6 14:18:49 2019
 
 @author: florianpgn
+
+This file contains the necessary functions for implementing the benchmark method. 
+Basically, they define the association rules and then apply them on the actions. 
+It also contains a function for evaluating the performance of the benchmark 
+method. 
 """
 import numpy as np
 
