@@ -41,7 +41,7 @@ For a more detailed analysis together with a comparison with the proposed method
 ###### Proposed Bayesian estimation method
 The main_proposed.py routine implements the Bayesian scheme. Several variations of it, for instance non-/hierarchical, as well as assuming different relevance characteristics or in/dependence relations between descriptors, can be realized by setting the relating hyper-parameters in params.py file. 
 
-Moreover, this routine does not only the Bayesian approach but also the benchmark method and provides detailed comparison. 
+Moreover, this routine does not only implement the Bayesian approach but also the benchmark method and it provides detailed comparison of the both. 
 
 ###### Estimation with standard classifiers
 
