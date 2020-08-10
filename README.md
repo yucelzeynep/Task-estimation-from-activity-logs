@@ -1,11 +1,13 @@
 # Task estimation from activity logs
 This repository contains the resources necessary for reproducing the results reported in our manuscript. The implementation is done in Python 3.5.2 with no specific dependencies.
 
-Specifically, it is organized as collection data, main routines, auxiliaries and tools. Please see below for brief explanation of each component. For a high-level overview of each  script, please see the docstrings appearing on the top of each file and for low-level descriptions please look into the functions. 
+Specifically, the repository is organized as collection main routines, auxiliaries and tools. The dataset analyzed during the study is not publicly available, since it contains privacy information and relates to the performance of the software company. Nevertheless, it is available from the corresponding author on reasonable request. In addition, we provide information on the contents of the organization of the data set, since it helps in understanding our software. 
+
+Please see below for brief explanation of each software component. For a high-level overview of each script, please see the docstrings appearing on the top of each file and for low-level descriptions please look into the functions. 
 
 **Data and annotations**
 
-The activity logs and task annotations are provided together. Namely, the columns in data/annotation_*.csv involve both the descriptors and the assigned tasks as organized as follows
+The activity logs and task annotations are provided together as comma separated values (with file names annotation_*.csv). The columns of the csv files involve both the descriptors and the assigned tasks organized as follows
 
 | Column no. |Contents | 
 | :---       |:------  |
@@ -21,7 +23,7 @@ The activity logs and task annotations are provided together. Namely, the column
 |  11   |   Task annotation (candidate-3)   |
 |  12   |  Automatic estimation by association rules   |
 
-In this respect, columns 2-7 contain the descriptors, whereas columns 9-11 contain the annotations. On the other hand, column 12 contains the outcomes of an implementation of the benchmark method (based on association rules) in Visual Basic [1]. However, in this project, we prefer using a devoted routine for this (see below for the explanation of main_benchmark.py), so as to be able to carry out a detailed analysis on a common platform and provide comparisons to the proposed method. 
+Namely, columns 2-7 contain the descriptors, whereas columns 9-11 contain the annotations. On the other hand, column 12 contains the outcomes of an implementation of the benchmark method (based on association rules) in Visual Basic [1]. However, in this project, we prefer using a devoted routine for this (see below for the explanation of main_benchmark.py), so as to be able to carry out a detailed analysis on a common platform and provide comparisons to the proposed method. 
 
 
 **Main routines**
